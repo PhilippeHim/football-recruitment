@@ -1,0 +1,46 @@
+import { WINGER_FILTERS } from '../constante/filters.js';
+import { POSITION_PRESETS } from '../constante/positionPresets.js';
+import { ROLE_PROFILES, createRoleFilters } from '../constante/roleProfiles.js';
+
+function signature(filters) {
+  return JSON.stringify({
+    positions: [...filters.positions].sort(),
+    leagues: [...filters.leagues].sort(),
+    gender: filters.gender,
+    query: filters.query.trim(),
+    ovr: filters.ovr,
+    pac: filters.pac,
+    dri: filters.dri,
+    excludeBigFive: filters.excludeBigFive,
+    minimums: Object.entries(filters.minimums ?? {}).sort(([a], [b]) =>
+      a.localeCompare(b),
+    ),
+  });
+}
+
+/** Le profil appliqué reste distinct du choix non encore validé dans la liste. */
+export function activeProfile(filters) {
+  let reference;
+  let title = 'Recherche libre';
+  if (filters.presetId === 'winger') {
+    reference = WINGER_FILTERS;
+    title = 'Ailier rapide';
+  }
+  const position = POSITION_PRESETS.find(
+    (item) => `position:${item.code}` === filters.presetId,
+  );
+  if (position) {
+    reference = position.filters;
+    title = position.label;
+  }
+  const role = ROLE_PROFILES.find((item) => `role:${item.id}` === filters.presetId);
+  if (role) {
+    reference = createRoleFilters(role);
+    title = role.title;
+  }
+  return {
+    title,
+    customized: Boolean(reference && signature(filters) !== signature(reference)),
+    applied: Boolean(reference),
+  };
+}

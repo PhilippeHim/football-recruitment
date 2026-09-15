@@ -1,0 +1,102 @@
+@media (min-width: 1500px) {
+  main {
+    padding: 40px 50px;
+  }
+  .chart-area {
+    height: 340px;
+  }
+}
+@media (max-width: 1150px) {
+  .layout {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+  main {
+    padding: 28px 22px;
+  }
+  .charts {
+    grid-template-columns: 1fr;
+  }
+  .comparison {
+    grid-template-columns: 1fr;
+  }
+  .comparison .groups {
+    height: 280px;
+  }
+  .pitch {
+    display: none;
+  }
+  .metric {
+    padding: 15px;
+  }
+  .metric strong {
+    font-size: 28px;
+  }
+  .chart-heading .tag {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .topbar {
+    height: 65px;
+    padding: 0 18px;
+    gap: 10px;
+  }
+  .top-label,
+  .dataset-badge span {
+    display: none;
+  }
+  .dataset-badge {
+    font-size: 10px;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid #dfe5dc;
+    padding: 20px;
+  }
+  .preset {
+    margin: 15px 0;
+  }
+  .filter-group {
+    padding: 14px 0;
+  }
+  .slider {
+    margin-top: 14px;
+  }
+  .sidebar .side-note {
+    display: none;
+  }
+  main {
+    padding: 25px 16px;
+  }
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .card {
+    padding: 17px;
+  }
+  .comparison {
+    gap: 5px;
+  }
+  .chart-area {
+    height: 280px;
+  }
+  .pagination {
+    flex-wrap: wrap;
+  }
+  .pagination > div {
+    gap: 8px;
+  }
+  h1 {
+    font-size: 35px;
+  }
+  .page-heading {
+    margin-bottom: 22px;
+  }
+  .table-card p {
+    max-width: 320px;
+  }
+}

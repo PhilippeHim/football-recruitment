@@ -1,0 +1,32 @@
+.state {
+  text-align: center;
+  padding: 70px 25px;
+  background: white;
+  border: 1px solid #dfe5d9;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+.state p {
+  color: #7d8876;
+  margin: 12px 0 20px;
+}
+.empty-icon {
+  font-size: 40px;
+  color: #6e8660;
+}
+footer {
+  font-size: 10px;
+  color: #7d8876;
+  margin: 24px 0 0;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

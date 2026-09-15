@@ -1,0 +1,176 @@
+.player-comparison {
+  margin-top: 20px;
+  scroll-margin-top: 20px;
+}
+.player-comparison h3 {
+  font-size: 22px;
+  line-height: 1.3;
+  margin: 8px 0;
+}
+.comparison-player-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+.comparison-player {
+  border: 1px solid #e1e6dc;
+  border-top: 3px solid;
+  border-radius: 7px;
+  padding: 13px;
+}
+.comparison-player > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+.comparison-player button {
+  padding: 0 7px;
+  font-size: 18px;
+}
+.comparison-player > span,
+.comparison-player > small {
+  display: block;
+  margin-top: 5px;
+}
+.comparison-player > small {
+  color: #68796d;
+}
+.outside-filters {
+  font-size: 11px;
+  color: #805016;
+}
+.radar-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 22px;
+}
+.comparison-radar {
+  height: 360px;
+  min-width: 0;
+}
+.comparison-reading > small {
+  color: #647569;
+}
+.comparison-placeholder {
+  padding: 25px 0 4px;
+}
+.comparison-placeholder a {
+  color: #147c70;
+}
+.comparison-values caption {
+  text-align: left;
+  padding: 12px 0;
+  font-size: 12px;
+}
+.comparison-values th {
+  white-space: normal;
+  min-width: 100px;
+}
+.comparison-values th small {
+  display: block;
+  font-weight: 400;
+}
+.comparison-values td {
+  min-width: 80px;
+}
+.comparison-values strong {
+  font-weight: 800;
+}
+.comparison-tray {
+  position: fixed;
+  bottom: 16px;
+  left: 296px;
+  right: 24px;
+  z-index: 20;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 13px 18px;
+  border: 1px solid #45685b;
+  border-radius: 10px;
+  background: #123e34;
+  color: #fff;
+  box-shadow: 0 8px 28px #123e3433;
+}
+.comparison-tray > div:first-child {
+  min-width: 130px;
+}
+.comparison-tray span {
+  display: block;
+  font-size: 11px;
+  color: #d0dfc8;
+}
+.comparison-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.comparison-chips button {
+  background: #244f42;
+  color: white;
+  border-color: #537667;
+  font-size: 11px;
+}
+.open-comparison {
+  font-weight: 600;
+}
+.comparison-active {
+  padding-bottom: 140px;
+}
+.player-selected {
+  background: #edf4e8;
+}
+.compare-cell {
+  min-width: 75px;
+}
+.compare-cell input {
+  width: 17px;
+  height: 17px;
+}
+.compare-instruction {
+  border-left: 3px solid #a3b555;
+  padding-left: 12px;
+}
+@media (max-width: 1150px) {
+  .comparison-tray {
+    left: 255px;
+  }
+  .radar-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+@media (max-width: 760px) {
+  .comparison-tray {
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+  }
+  .comparison-chips {
+    flex-basis: 100%;
+    order: 3;
+  }
+  .open-comparison {
+    margin-left: auto;
+    font-size: 11px;
+  }
+  .comparison-player-cards {
+    grid-template-columns: 1fr;
+  }
+  .comparison-radar {
+    height: 300px;
+  }
+  .player-comparison .table-title {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .comparison-active {
+    padding-bottom: 190px;
+  }
+}

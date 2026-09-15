@@ -1,0 +1,88 @@
+.table-card {
+  margin-top: 20px;
+}
+.table-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.table-title .eyebrow {
+  margin-bottom: 4px;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+.table-card > .player-search {
+  max-width: 650px;
+  margin: 18px 0 22px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+}
+th {
+  border-bottom: 1px solid #dfe6d9;
+  background: #f7f9f3;
+  padding: 6px 9px;
+}
+th button {
+  padding: 6px 0;
+  white-space: nowrap;
+  border: none;
+  background: none;
+  font-size: 11px;
+  color: #728169;
+}
+th span {
+  margin-left: 5px;
+}
+td {
+  padding: 13px 10px;
+  border-bottom: 1px solid #eef0e9;
+  min-width: 48px;
+}
+td:nth-child(2) {
+  min-width: 160px;
+}
+td:nth-child(5),
+td:nth-child(6) {
+  min-width: 125px;
+}
+td small {
+  display: block;
+  color: #82907e;
+  font-size: 10px;
+  margin-top: 4px;
+}
+td strong {
+  font-weight: 600;
+}
+tbody tr:hover {
+  background: #f8faf4;
+}
+.score {
+  display: inline-block;
+  background: #edf2df;
+  color: #4d693c;
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18px;
+  font-size: 11px;
+  color: #74846e;
+  gap: 14px;
+}
+.pagination > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pagination button {
+  font-size: 11px;
+}

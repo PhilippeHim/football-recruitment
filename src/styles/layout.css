@@ -1,0 +1,65 @@
+.topbar {
+  height: 80px;
+  border-bottom: 1px solid #dfe5dc;
+  display: flex;
+  align-items: center;
+  padding: 0 34px;
+  gap: 42px;
+  background: #fbfcf8;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #123e34;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -1.5px;
+}
+.brand-point {
+  color: #a3b555;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  background: #123e34;
+  color: #eff3df;
+  width: 35px;
+  height: 35px;
+  border-radius: 9px;
+  font-size: 22px;
+  margin-right: 10px;
+  transform: rotate(-7deg);
+}
+.top-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #74837a;
+}
+.dataset-badge {
+  margin-left: auto;
+  font-size: 12px;
+  color: #62756a;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.dataset-badge i,
+.dot {
+  width: 7px;
+  height: 7px;
+  background: #4c936b;
+  border-radius: 50%;
+  display: inline-block;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr);
+  max-width: 1800px;
+  margin: auto;
+}
+.sidebar {
+  padding: 30px 22px;
+  background: #fbfcf8;
+  border-right: 1px solid #dfe5dc;
+}

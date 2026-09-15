@@ -1,0 +1,236 @@
+.side-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.side-title h2 {
+  font-size: 16px;
+}
+.text-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #457563;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.side-intro {
+  font-size: 12px;
+  color: #748078;
+  margin-top: 9px;
+}
+.position-presets {
+  margin: 20px 0;
+}
+.position-presets select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d9e0d9;
+  border-radius: 6px;
+  background: white;
+  margin: 6px 0 10px;
+  font-size: 12px;
+}
+.position-presets button {
+  width: 100%;
+  background: #e9efdd;
+}
+.position-presets small {
+  display: block;
+  margin-top: 8px;
+  color: #68796d;
+}
+.player-search {
+  margin-top: 20px;
+}
+.player-search > label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.search-field {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #bdcec0;
+  border-radius: 6px;
+}
+.search-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  font-size: 12px;
+}
+.search-field button {
+  border: 0;
+  padding: 5px 10px;
+  font-size: 20px;
+}
+.player-search > small {
+  display: block;
+  color: #68796d;
+  margin-top: 6px;
+}
+.preset {
+  display: block;
+  text-align: left;
+  width: 100%;
+  background: #e9efdd;
+  border-color: #dce5cb;
+  margin: 23px 0;
+  padding: 18px;
+}
+.preset span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+.preset strong {
+  display: block;
+  font-size: 16px;
+  margin: 5px 0;
+}
+.active-profile {
+  cursor: default;
+}
+.active-profile small {
+  display: block;
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+}
+.active-profile .profile-customized {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0;
+  padding: 3px 7px;
+  border: 1px solid #bdcaaa;
+  border-radius: 4px;
+  margin: 3px 0;
+}
+.preset small {
+  color: #5c705a;
+  line-height: 1.7;
+}
+.filter-group {
+  padding: 21px 0;
+  border-top: 1px solid #e1e6dd;
+}
+.eyebrow {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  color: #728271;
+  margin-bottom: 12px;
+}
+.multi {
+  margin: 12px 0;
+  border: 1px solid #d9e0d9;
+  border-radius: 6px;
+  background: white;
+  font-size: 12px;
+}
+.multi summary {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px;
+  gap: 5px;
+  list-style: none;
+}
+.multi summary::-webkit-details-marker {
+  display: none;
+}
+.multi summary span {
+  color: #66786b;
+}
+.multi-body {
+  padding: 0 10px 10px;
+}
+.multi-body > input {
+  width: 100%;
+  border: 1px solid #d9e0d9;
+  border-radius: 4px;
+  padding: 7px;
+  margin: 5px 0 8px;
+}
+.options {
+  max-height: 210px;
+  overflow: auto;
+  margin-top: 8px;
+}
+.options label {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 5px 0;
+}
+.select-label {
+  display: block;
+  font-size: 12px;
+}
+.select-label select {
+  display: block;
+  width: 100%;
+  margin: 5px 0 16px;
+  padding: 10px;
+  border: 1px solid #d9e0d9;
+  background: white;
+  border-radius: 6px;
+}
+.check {
+  display: flex;
+  gap: 7px;
+  font-size: 12px;
+  align-items: flex-start;
+}
+.check input {
+  margin-top: 4px;
+}
+.definition {
+  font-size: 10px;
+  color: #6a7c70;
+  margin: 8px 0 0 24px;
+}
+.definition p {
+  margin-top: 5px;
+}
+.slider {
+  display: block;
+  margin-top: 22px;
+  font-size: 12px;
+}
+.slider > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #758479;
+}
+.slider b {
+  color: #29493d;
+}
+.slider output {
+  margin-left: auto;
+  background: #e9efdf;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #29493d;
+}
+.slider input {
+  width: 100%;
+  margin: 12px 0 0;
+}
+.slider .range-label {
+  justify-content: space-between;
+}
+.side-note {
+  padding: 14px;
+  background: #f0f3eb;
+  border-radius: 5px;
+  color: #758070;
+  font-size: 11px;
+}

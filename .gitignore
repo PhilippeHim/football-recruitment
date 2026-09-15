@@ -1,0 +1,27 @@
+# Dépendances et compilation
+node_modules/
+dist/
+.vite/
+
+# Tests et couverture
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+coverage/
+
+# Variables d'environnement locales (conserver les modèles)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Journaux
+*.log
+
+# Fichiers macOS et fichiers temporaires d'édition
+.DS_Store
+._*
+*.swp
+*.swo
+*~

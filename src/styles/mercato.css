@@ -1,0 +1,147 @@
+.mercato {
+  display: grid;
+  gap: 24px;
+}
+.mercato label {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0;
+}
+.mercato input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #cbd8c3;
+  border-radius: 6px;
+}
+.mercato-settings,
+.mercato-score {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.mercato-score {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.mercato-score > div {
+  background: #e8efdb;
+  padding: 16px;
+  border-radius: 12px;
+}
+.mercato-score strong {
+  display: block;
+  font-size: 21px;
+}
+.mercato-missions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+.mercato-missions li {
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+.mercato-board {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
+  gap: 24px;
+  align-items: start;
+}
+.mercato-pool,
+.mercato-development {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+.mercato-shortlist,
+.mercato-results {
+  max-height: 500px;
+  overflow: auto;
+}
+.mercato-shortlist article {
+  display: flex;
+  margin-top: 10px;
+  gap: 4px;
+}
+.mercato-shortlist article > button:first-child {
+  flex: 1;
+  text-align: left;
+}
+.mercato-shortlist small {
+  display: block;
+}
+.mercato-shortlist [aria-pressed='true'] {
+  background: #e8efdb;
+  border-color: #147c70;
+}
+.mercato-results button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-top: 6px;
+}
+.mercato-pitch {
+  border: 3px solid #d6e6bb;
+  border-radius: 15px;
+  padding: 18px;
+  background: repeating-linear-gradient(0deg, #174b3b 0 90px, #205a45 90px 180px);
+  color: white;
+}
+.pitch-line h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.pitch-line > div {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.pitch-slot {
+  width: 25%;
+  min-width: 0;
+  text-align: center;
+}
+.pitch-slot > button:first-child {
+  width: 100%;
+  min-height: 110px;
+  padding: 8px 4px;
+  background: #f5f8e9;
+}
+.pitch-slot span,
+.pitch-slot small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.pitch-slot strong {
+  color: #147c70;
+}
+.pitch-remove {
+  padding: 2px 5px;
+  font-size: 11px;
+  margin-top: 4px;
+}
+@media (max-width: 800px) {
+  .mercato-board {
+    grid-template-columns: 1fr;
+  }
+  .mercato-settings,
+  .mercato-score {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .mercato-pitch {
+    padding: 8px;
+  }
+  .pitch-line > div {
+    gap: 4px;
+  }
+  .pitch-slot span {
+    font-size: 11px;
+  }
+}
