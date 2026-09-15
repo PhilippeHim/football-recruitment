@@ -64,12 +64,8 @@ export default function LeagueBoxplot({ rows }) {
   const right = width - 25;
   const top = 25;
   const bottom = 345;
-  const min = !groups.length
-    ? 0
-    : Math.max(0, Math.floor((Math.min(...groups.map((g) => g.min)) - 5) / 5) * 5);
-  const max = !groups.length
-    ? 100
-    : Math.min(100, Math.ceil((Math.max(...groups.map((g) => g.max)) + 5) / 5) * 5);
+  const min = 40;
+  const max = 100;
   const y = (value) => bottom - ((value - min) / (max - min)) * (bottom - top);
   const step = (right - left) / groups.length;
   const ticks = Array.from(
