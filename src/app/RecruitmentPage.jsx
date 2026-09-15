@@ -101,6 +101,7 @@ export default function RecruitmentPage() {
               )}
               {page === 'recherche' && (
                 <SearchPage
+                  onApplyPositionPreset={recruitment.applyPositionPreset}
                   rows={recruitment.selectedPlayers}
                   totalCount={rows.length}
                   comparison={comparison}

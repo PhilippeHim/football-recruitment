@@ -3,7 +3,6 @@ import { NUMERIC_FILTERS } from '../../constante/filters.js';
 import ScoreSlider from './ScoreSlider.jsx';
 import ActiveProfileBadge from './ActiveProfileBadge.jsx';
 import BigFiveFilter from './BigFiveFilter.jsx';
-import PlayerSearch from './PlayerSearch.jsx';
 import PositionPresets from './PositionPresets.jsx';
 import RoleCriteria from './RoleCriteria.jsx';
 
@@ -21,21 +20,18 @@ export default function FiltersSidebar({
   return (
     <aside className="sidebar" aria-label="Filtres de recrutement">
       <div className="side-title">
-        <h2>Votre recherche</h2>
         <button className="text-button" onClick={onReset}>
           Réinitialiser
         </button>
       </div>
-      <p className="side-intro">Définissez le profil qui manque à votre équipe.</p>
-      <a className="role-shortcut" href="#/profils">
-        Choisir un profil métier →
-      </a>
-      <PlayerSearch
-        value={filters.query}
-        onChange={(value) => onFilterChange('query', value)}
-      />
       <ActiveProfileBadge filters={filters} />
-      <PositionPresets onApply={onApplyPositionPreset} />
+      {!hideSelectionFilters && (
+        <PositionPresets
+          onApply={onApplyPositionPreset}
+          onReset={onReset}
+          presetId={filters.presetId}
+        />
+      )}
       <RoleCriteria
         filters={filters}
         onChange={onRoleMinimumChange}

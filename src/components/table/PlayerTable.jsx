@@ -7,6 +7,7 @@ import { TABLE_COLUMNS } from '../../constante/table.js';
 import { ROLE_STAT_LABELS } from '../../constante/roleProfiles.js';
 
 export default function PlayerTable({
+  profile,
   filters,
   rows,
   comparisonPlayers,
@@ -40,19 +41,18 @@ export default function PlayerTable({
       <div className="table-title">
         <div>
           <span className="eyebrow">LA SÉLECTION</span>
-          <h2>Les profils à suivre</h2>
+          <h2>
+            {profile?.applied
+              ? `Profil appliqué à cette recherche : ${profile.title}`
+              : 'Recherche libre'}
+          </h2>
+          {profile?.customized && <span className="tag">Personnalisé</span>}
         </div>
         <span className="tag" aria-live="polite">
           {formatCount(matchingCount)} joueurs
           {query && ` sur ${formatCount(rows.length)}`}
         </span>
       </div>
-      <p>
-        Cliquez sur un en-tête pour trier.{' '}
-        {hasRole
-          ? 'Les colonnes de qualités suivent votre profil métier : chaque note est accompagnée du seuil demandé.'
-          : 'OVR : note globale · PAC : vitesse · DRI : dribble · SHO : tir.'}
-      </p>
       <p className="compare-instruction" aria-live="polite">
         Choisissez 2 ou 3 joueurs de champ avec les cases « Comparer » pour confronter
         leurs qualités.{' '}
@@ -64,7 +64,7 @@ export default function PlayerTable({
         value={query}
         onChange={changeQuery}
         label="Rechercher dans le tableau"
-        help="Nom de joueur ou club · recherche sur toutes les pages des résultats filtrés. Les graphiques et les joueurs cochés sont conservés."
+        help=""
       />
       {matchingCount === 0 ? (
         <p role="status">

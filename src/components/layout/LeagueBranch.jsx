@@ -17,7 +17,11 @@ export default function LeagueBranch({ league, expanded, onSelectPlayer }) {
           />
         ))}
         <span>
-          {league.clubs.length} clubs ·{' '}
+          OVR médian :{' '}
+          {league.medianOvr === null
+            ? 'Non disponible'
+            : league.medianOvr.toLocaleString('fr-FR')}{' '}
+          · {league.clubs.length} clubs ·{' '}
           {league.clubs.reduce((sum, club) => sum + club.count, 0)} joueurs
         </span>
       </summary>

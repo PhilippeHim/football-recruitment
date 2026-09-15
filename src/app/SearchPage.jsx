@@ -1,3 +1,5 @@
+import PositionPresets from '../components/filters/PositionPresets.jsx';
+import { activeProfile } from '../utils/activeProfile.js';
 import MetricsPanel from '../components/metrics/MetricsPanel.jsx';
 import PlayerTable from '../components/table/PlayerTable.jsx';
 import SelectionFilters from '../components/filters/SelectionFilters.jsx';
@@ -11,6 +13,8 @@ export default function SearchPage({
   filters,
   leagueOptions,
   onFilterChange,
+  onApplyPositionPreset,
+  onReset,
 }) {
   return (
     <>
@@ -21,18 +25,26 @@ export default function SearchPage({
         <a href="#/analyse">Explorer cette sélection →</a>
       </div>
       <PlayerTable
+        profile={activeProfile(filters)}
         filters={
-          <div
-            className="table-selection-filters"
-            role="group"
-            aria-label="Filtres des résultats"
-          >
-            <SelectionFilters
-              filters={filters}
-              leagueOptions={leagueOptions}
-              onFilterChange={onFilterChange}
+          <>
+            <PositionPresets
+              onApply={onApplyPositionPreset}
+              onReset={onReset}
+              presetId={filters.presetId}
             />
-          </div>
+            <div
+              className="table-selection-filters"
+              role="group"
+              aria-label="Filtres des résultats"
+            >
+              <SelectionFilters
+                filters={filters}
+                leagueOptions={leagueOptions}
+                onFilterChange={onFilterChange}
+              />
+            </div>
+          </>
         }
         rows={rows}
         comparisonPlayers={comparison.players}

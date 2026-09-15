@@ -1,3 +1,4 @@
+import { median } from './median.js';
 import { matchesSearch } from './searchText.js';
 
 /** Les clubs restent rattachés à leur ligue, même si un nom existe ailleurs. */
@@ -14,6 +15,7 @@ export function leagueHierarchy(rows, query = '') {
   return [...leagues]
     .map(([name, clubs]) => ({
       name,
+      medianOvr: median([...clubs.values()].flat(), 'OVR'),
       genders: ['F', 'M'].filter((gender) =>
         [...clubs.values()].some((players) =>
           players.some((player) => player.gender === gender),
@@ -29,5 +31,8 @@ export function leagueHierarchy(rows, query = '') {
         .sort((a, b) => a.name.localeCompare(b.name, 'fr')),
     }))
     .filter((league) => league.clubs.length)
-    .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+    .sort(
+      (a, b) =>
+        (b.medianOvr ?? -1) - (a.medianOvr ?? -1) || a.name.localeCompare(b.name, 'fr'),
+    );
 }

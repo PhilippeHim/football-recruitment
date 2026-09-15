@@ -26,12 +26,14 @@ test('Les profils par poste remplacent les filtres précédents et restent modif
   ).not.toBeChecked();
   await presets.selectOption('ST');
   await page.getByRole('button', { name: 'Appliquer ce profil' }).click();
-  await expect(page.locator('.metric.primary strong')).toHaveText('316');
+  await expect(page.getByLabel('SHO minimum')).toHaveValue('75');
+  await expect(page.getByLabel('PHY minimum')).toHaveValue('70');
   await page
     .getByRole('navigation')
     .getByRole('link', { name: /Analyser la sélection/ })
     .click();
-  await expect(page.locator('.metric.primary strong')).toHaveText('316');
+  await expect(page.getByLabel('SHO minimum')).toHaveValue('75');
+  await expect(page.getByLabel('PHY minimum')).toHaveValue('70');
   await page.getByLabel('OVR minimum').fill('99');
   await expect(
     page.getByRole('heading', { name: 'Aucun profil ne correspond' }),

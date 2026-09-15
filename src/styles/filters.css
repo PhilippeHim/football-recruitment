@@ -269,3 +269,28 @@
     grid-template-columns: 1fr;
   }
 }
+
+.position-presets-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+.position-presets-controls select {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.position-presets-controls button {
+  width: auto;
+  flex-shrink: 0;
+  padding: 10px 14px;
+}
+.table-card > .position-presets {
+  max-width: 650px;
+}
+@media (max-width: 400px) {
+  .position-presets-controls {
+    flex-wrap: wrap;
+  }
+}

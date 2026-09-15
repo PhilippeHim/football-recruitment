@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import CategorySymbols from '../players/CategorySymbols.jsx';
 import {
   BarChart,
   Bar,
@@ -46,6 +47,8 @@ export default function LeagueAnalytics({ rows }) {
       const key = view === 'count' ? player.League : `${player.League}|${player.Team}`;
       if (!groups.has(key))
         groups.set(key, {
+          id: key,
+          genders: new Set(),
           name: view === 'count' ? player.League : player.Team,
           league: player.League,
           count: 0,
@@ -56,6 +59,7 @@ export default function LeagueAnalytics({ rows }) {
         });
       const group = groups.get(key);
       group.count++;
+      group.genders.add(player.gender);
       group.sum += player.OVR;
       const amount = price(player);
       if (amount !== null) {
@@ -122,6 +126,7 @@ export default function LeagueAnalytics({ rows }) {
           ligue est aussi disponible dans les deux autres vues.
         </p>
       )}
+      <p>♀ : catégorie féminine · ♂ : catégorie masculine.</p>
       {data.length ? (
         <>
           <div
@@ -147,19 +152,47 @@ export default function LeagueAnalytics({ rows }) {
                 />
                 <YAxis
                   type="category"
-                  dataKey="name"
-                  width={125}
-                  tick={{ fontSize: 10 }}
-                  tickFormatter={(name) =>
-                    name.length > 19 ? `${name.slice(0, 18)}…` : name
-                  }
+                  dataKey="id"
+                  width={145}
+                  tick={({ x, y, payload }) => {
+                    const item = data.find((group) => group.id === payload.value);
+                    if (!item) return null;
+                    const name =
+                      item.name.length > 19 ? `${item.name.slice(0, 18)}…` : item.name;
+                    return (
+                      <text
+                        x={x}
+                        y={y}
+                        dy={4}
+                        textAnchor="end"
+                        fontSize={10}
+                        fill="#64736d"
+                      >
+                        <title>{item.name}</title>
+                        {name}{' '}
+                        {['F', 'M']
+                          .filter((gender) => item.genders.has(gender))
+                          .map((gender) => (
+                            <tspan
+                              key={gender}
+                              fill={gender === 'F' ? '#d14f9b' : '#2386c0'}
+                              fontWeight={700}
+                            >
+                              {gender === 'F' ? '♀' : '♂'}{' '}
+                            </tspan>
+                          ))}
+                      </text>
+                    );
+                  }}
                 />
                 <Tooltip
                   content={({ active, payload }) => {
                     const item = payload?.[0]?.payload;
                     return active && item ? (
                       <div className="analytics-tooltip">
-                        <strong>{item.name}</strong>
+                        <strong>
+                          {item.name} <CategorySymbols genders={item.genders} />
+                        </strong>
                         <div>{item.league}</div>
                         <div>
                           {VIEWS[view].unit} : {format(item.score)}
@@ -208,7 +241,7 @@ export default function LeagueAnalytics({ rows }) {
                   {data.map((item) => (
                     <tr key={`${item.league}|${item.name}`}>
                       <td>
-                        {item.name}
+                        {item.name} <CategorySymbols genders={item.genders} />
                         {view !== 'count' && <small>{item.league}</small>}
                       </td>
                       <td>{format(item.score)}</td>

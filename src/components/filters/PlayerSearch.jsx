@@ -27,7 +27,7 @@ export default function PlayerSearch({
           onKeyDown={(event) => {
             if (event.key === 'Escape') clear();
           }}
-          aria-describedby={`${id}-help`}
+          aria-describedby={help ? `${id}-help` : undefined}
         />
         {value && (
           <button type="button" onClick={clear} aria-label="Effacer la recherche">
@@ -35,7 +35,7 @@ export default function PlayerSearch({
           </button>
         )}
       </div>
-      <small id={`${id}-help`}>{help}</small>
+      {help && <small id={`${id}-help`}>{help}</small>}
     </div>
   );
 }

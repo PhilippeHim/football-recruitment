@@ -108,3 +108,29 @@
 .tooltip span {
   color: #6b7d71;
 }
+
+.league-boxplot {
+  margin: 20px 0;
+}
+.boxplot-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.boxplot-scroll svg {
+  display: block;
+  font-size: 11px;
+  fill: #42584e;
+}
+
+.boxplot-references {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  font-size: 12px;
+  margin: 12px 0;
+}
+.boxplot-references > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

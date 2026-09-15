@@ -24,3 +24,21 @@ test('Les joueurs restent rattachés à leur club et ligue, même avec des noms 
     [1, 2, 3],
   );
 });
+
+test('Le vivier classe les ligues par médiane globale décroissante, même pendant la recherche', () => {
+  const rows = [
+    { Name: 'A', League: 'A', Team: 'United', OVR: 90 },
+    { Name: 'B', League: 'A', Team: 'Autre', OVR: 50 },
+    { Name: 'C', League: 'B', Team: 'United', OVR: 80 },
+    { Name: 'D', League: 'C', Team: 'United' },
+  ];
+  for (const query of ['', 'United']) {
+    const leagues = leagueHierarchy(rows, query);
+    assert.deepEqual(
+      leagues.map((league) => league.name),
+      ['B', 'A', 'C'],
+    );
+    assert.equal(leagues[1].medianOvr, 70);
+    assert.equal(leagues[2].medianOvr, null);
+  }
+});
