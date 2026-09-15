@@ -149,3 +149,11 @@
   object-fit: contain;
   flex-shrink: 0;
 }
+
+.league-radar {
+  margin: 20px 0;
+}
+.league-radar-chart {
+  height: 440px;
+  min-width: 0;
+}

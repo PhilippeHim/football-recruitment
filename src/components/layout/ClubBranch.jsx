@@ -18,15 +18,27 @@ export default function ClubBranch({ club, onSelectPlayer }) {
         <ul className="roster-branches" aria-label={`Effectif de ${club.name}`}>
           {club.players.map((player) => (
             <li key={player.id}>
-              {['F', 'M'].includes(player.gender) && (
-                <img
-                  className="player-avatar"
-                  src={`${import.meta.env.BASE_URL}pers_${player.gender.toLowerCase()}.png`}
-                  alt={player.gender === 'F' ? 'Femme' : 'Homme'}
-                  width="40"
-                  height="40"
-                />
-              )}
+              <div className="player-portrait-icons">
+                {['F', 'M'].includes(player.gender) && (
+                  <img
+                    className="player-avatar"
+                    src={`${import.meta.env.BASE_URL}pers_${player.gender.toLowerCase()}.png`}
+                    alt={player.gender === 'F' ? 'Femme' : 'Homme'}
+                    width="40"
+                    height="40"
+                  />
+                )}
+                {player.Position === 'GK' && (
+                  <img
+                    className="goalkeeper-icon"
+                    src={`${import.meta.env.BASE_URL}glove_gk.png`}
+                    alt={player.gender === 'F' ? 'Gardienne' : 'Gardien'}
+                    title={player.gender === 'F' ? 'Gardienne' : 'Gardien'}
+                    width="24"
+                    height="24"
+                  />
+                )}
+              </div>
               <button
                 className="player-identity-link"
                 onClick={() => onSelectPlayer(player)}

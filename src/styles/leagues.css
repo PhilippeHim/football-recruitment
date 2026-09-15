@@ -174,3 +174,27 @@
   color: #203c36;
   font: inherit;
 }
+
+.player-portrait-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.player-portrait-icons .player-avatar {
+  margin: 0;
+}
+.goalkeeper-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.roster-branches > li {
+  position: relative;
+}
+.player-portrait-icons {
+  padding-right: 44px;
+}

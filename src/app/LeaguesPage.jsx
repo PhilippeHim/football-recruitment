@@ -1,3 +1,4 @@
+import LeagueRadar from '../components/charts/LeagueRadar.jsx';
 import LeagueBoxplot from '../components/charts/LeagueBoxplot.jsx';
 import LeagueAnalytics from '../components/charts/LeagueAnalytics.jsx';
 import { useMemo, useState } from 'react';
@@ -28,6 +29,7 @@ export default function LeaguesPage({ rows, mercato }) {
       )}
       <LeagueAnalytics rows={rows} />
       <LeagueBoxplot rows={rows} />
+      <LeagueRadar rows={rows} />
       <div className="league-directory-tools">
         <label htmlFor="league-search">Rechercher une ligue ou un club</label>
         <input
