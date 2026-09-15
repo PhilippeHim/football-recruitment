@@ -13,7 +13,6 @@ import {
   CHART_COLOR,
   CHART_GRID_COLOR,
   CHART_AXIS_STYLE,
-  SCORE_DOMAIN,
   MEDIAN_COLOR,
   REGRESSION_COLOR,
 } from '../../constante/charts.js';
@@ -24,10 +23,15 @@ import { formatMean } from '../../utils/formatNumber.js';
 import { linearRegression } from '../../utils/linearRegression.js';
 import RegressionToggle from './RegressionToggle.jsx';
 import RegressionCaption from './RegressionCaption.jsx';
+import { scoreDomain } from '../../utils/scoreDomain.js';
 
 export default function PaceDribbleChart({ rows }) {
   const [showMedian, setShowMedian] = useState(false);
   const [showRegression, setShowRegression] = useState(false);
+  const domains = useMemo(
+    () => ({ pac: scoreDomain(rows, 'PAC'), dri: scoreDomain(rows, 'DRI') }),
+    [rows],
+  );
   const regression = useMemo(() => linearRegression(rows, 'PAC', 'DRI'), [rows]);
   const medians = useMemo(
     () => ({ pac: median(rows, 'PAC'), dri: median(rows, 'DRI') }),
@@ -57,7 +61,7 @@ export default function PaceDribbleChart({ rows }) {
       <div
         className="chart-area"
         role="img"
-        aria-label={`Nuage de ${rows.length} joueurs : vitesse PAC et dribble DRI, notes de 0 à 100.`}
+        aria-label={`Nuage de ${rows.length} joueurs : vitesse PAC de ${domains.pac[0]} à ${domains.pac[1]}, dribble DRI de ${domains.dri[0]} à ${domains.dri[1]}. Axes ajustés à la sélection.`}
       >
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 16, right: 22, bottom: 24, left: 3 }}>
@@ -66,7 +70,9 @@ export default function PaceDribbleChart({ rows }) {
               type="number"
               dataKey="PAC"
               name="Vitesse"
-              domain={SCORE_DOMAIN}
+              domain={domains.pac}
+              allowDataOverflow
+              allowDecimals={false}
               tick={CHART_AXIS_STYLE}
               label={{
                 value: 'PAC · Vitesse',
@@ -79,7 +85,9 @@ export default function PaceDribbleChart({ rows }) {
               type="number"
               dataKey="DRI"
               name="Dribble"
-              domain={SCORE_DOMAIN}
+              domain={domains.dri}
+              allowDataOverflow
+              allowDecimals={false}
               tick={CHART_AXIS_STYLE}
               width={42}
               label={{
@@ -125,6 +133,10 @@ export default function PaceDribbleChart({ rows }) {
       </div>
       <div className="chart-foot">
         <span className="dot" /> Un point = un joueur · Survolez pour voir son profil
+        <span>
+          Axes ajustés à la sélection : PAC {domains.pac[0]}–{domains.pac[1]} · DRI{' '}
+          {domains.dri[0]}–{domains.dri[1]}.
+        </span>
         {showRegression && regression && <RegressionCaption regression={regression} />}
         {showMedian && (
           <div className="median-caption" role="status">

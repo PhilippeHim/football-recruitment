@@ -1,4 +1,4 @@
-// Une couleur commune et des axes fixes rendent les sélections comparables.
+// Palette commune et bornes de référence des notes.
 export const CHART_COLOR = '#147c70';
 export const MEDIAN_COLOR = '#a46516';
 export const REGRESSION_COLOR = '#6656b5';
