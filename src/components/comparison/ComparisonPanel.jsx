@@ -1,3 +1,4 @@
+import { price } from '../../constante/mercato.js';
 import { COMPARISON_COLORS } from '../../constante/comparison.js';
 import { comparePlayers } from '../../utils/comparePlayers.js';
 import ComparisonRadar from './ComparisonRadar.jsx';
@@ -53,6 +54,14 @@ export default function ComparisonPanel({ players, filteredRows, onRemove, onCle
             <small>
               {player.Team} · {player.League}
             </small>
+            <span
+              className={price(player) === null ? 'market-value-unavailable' : undefined}
+            >
+              Valeur marchande :{' '}
+              {price(player) === null
+                ? 'Non disponible'
+                : `${(price(player) / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 3 })} M€`}
+            </span>
             {!visibleIds.has(player.id) && (
               <span className="outside-filters">
                 Hors des filtres actuels · conservé pour comparer
