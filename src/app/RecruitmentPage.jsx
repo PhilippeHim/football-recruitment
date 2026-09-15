@@ -59,7 +59,6 @@ export default function RecruitmentPage() {
             onFilterChange={recruitment.updateFilter}
             onToggleBigFive={recruitment.toggleBigFive}
             onReset={recruitment.resetFilters}
-            onApplyPositionPreset={recruitment.applyPositionPreset}
             onRoleMinimumChange={recruitment.updateRoleMinimum}
             onRemoveRole={recruitment.removeRoleProfile}
           />
@@ -101,7 +100,6 @@ export default function RecruitmentPage() {
               )}
               {page === 'recherche' && (
                 <SearchPage
-                  onApplyPositionPreset={recruitment.applyPositionPreset}
                   rows={recruitment.selectedPlayers}
                   totalCount={rows.length}
                   comparison={comparison}

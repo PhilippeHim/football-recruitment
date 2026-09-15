@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { DEFAULT_FILTERS, RESET_FILTERS, WINGER_FILTERS } from '../constante/filters.js';
 import { BIG_FIVE } from '../constante/leagues.js';
 import { filterPlayers } from '../utils/filterPlayers.js';
-import { POSITION_PRESETS } from '../constante/positionPresets.js';
+import { createPositionFilters } from '../constante/positionPresets.js';
 import { ROLE_PROFILES, createRoleFilters } from '../constante/roleProfiles.js';
 
 /** Source unique des filtres et de la sélection pour toutes les vues. */
@@ -17,7 +17,9 @@ export function useRecruitment(rows) {
   }, [rows]);
 
   function updateFilter(key, value) {
-    setFilters((current) => ({ ...current, [key]: value }));
+    setFilters((current) =>
+      key === 'positions' ? createPositionFilters(value) : { ...current, [key]: value },
+    );
   }
   function toggleBigFive(excluded) {
     // Retirer les choix devenus interdits évite une combinaison de filtres contradictoire.
@@ -35,10 +37,6 @@ export function useRecruitment(rows) {
   function applyWingerPreset() {
     setFilters(WINGER_FILTERS);
     window.location.hash = '/recherche';
-  }
-  function applyPositionPreset(code) {
-    const preset = POSITION_PRESETS.find((item) => item.code === code);
-    if (preset) setFilters(preset.filters);
   }
   function applyRoleProfile(id) {
     const profile = ROLE_PROFILES.find((item) => item.id === id);
@@ -65,7 +63,6 @@ export function useRecruitment(rows) {
     toggleBigFive,
     resetFilters,
     applyWingerPreset,
-    applyPositionPreset,
     applyRoleProfile,
     updateRoleMinimum,
     removeRoleProfile,

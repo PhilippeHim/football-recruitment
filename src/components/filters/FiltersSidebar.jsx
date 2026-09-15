@@ -3,7 +3,6 @@ import { NUMERIC_FILTERS } from '../../constante/filters.js';
 import ScoreSlider from './ScoreSlider.jsx';
 import ActiveProfileBadge from './ActiveProfileBadge.jsx';
 import BigFiveFilter from './BigFiveFilter.jsx';
-import PositionPresets from './PositionPresets.jsx';
 import RoleCriteria from './RoleCriteria.jsx';
 
 export default function FiltersSidebar({
@@ -13,7 +12,6 @@ export default function FiltersSidebar({
   onFilterChange,
   onToggleBigFive,
   onReset,
-  onApplyPositionPreset,
   onRoleMinimumChange,
   onRemoveRole,
 }) {
@@ -25,13 +23,6 @@ export default function FiltersSidebar({
         </button>
       </div>
       <ActiveProfileBadge filters={filters} />
-      {!hideSelectionFilters && (
-        <PositionPresets
-          onApply={onApplyPositionPreset}
-          onReset={onReset}
-          presetId={filters.presetId}
-        />
-      )}
       <RoleCriteria
         filters={filters}
         onChange={onRoleMinimumChange}

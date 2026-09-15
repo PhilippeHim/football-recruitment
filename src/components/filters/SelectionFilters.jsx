@@ -15,6 +15,7 @@ export default function SelectionFilters({ filters, leagueOptions, onFilterChang
       />
       <MultiSelect
         label="Postes principaux"
+        expandOptions
         options={POSITION_OPTIONS}
         selected={filters.positions}
         onChange={(value) => onFilterChange('positions', value)}

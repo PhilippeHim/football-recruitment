@@ -1,5 +1,5 @@
 import { WINGER_FILTERS, NUMERIC_FILTERS } from '../constante/filters.js';
-import { POSITION_PRESETS } from '../constante/positionPresets.js';
+import { POSITION_PRESETS, createPositionFilters } from '../constante/positionPresets.js';
 import { ROLE_PROFILES, createRoleFilters } from '../constante/roleProfiles.js';
 
 function signature(filters) {
@@ -23,6 +23,12 @@ export function activeProfile(filters) {
   if (filters.presetId === 'winger') {
     reference = WINGER_FILTERS;
     title = 'Ailier rapide';
+  }
+  if (filters.presetId === 'positions') {
+    reference = createPositionFilters(filters.positions);
+    title = POSITION_PRESETS.filter((preset) => filters.positions.includes(preset.code))
+      .map((preset) => preset.label)
+      .join(' · ');
   }
   const position = POSITION_PRESETS.find(
     (item) => `position:${item.code}` === filters.presetId,

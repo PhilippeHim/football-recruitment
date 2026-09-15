@@ -8,6 +8,7 @@ export default function MultiSelect({
   selected,
   onChange,
   disabledValues = [],
+  expandOptions = false,
 }) {
   const [query, setQuery] = useState('');
   const visibleOptions = options.filter((option) => matchesSearch(option.label, query));
@@ -20,7 +21,7 @@ export default function MultiSelect({
   }
 
   return (
-    <details className="multi">
+    <details className={`multi${expandOptions ? ' multi-expanded-options' : ''}`}>
       <summary>
         {label}
         <span>{selected.length || 'Tous'} ▾</span>

@@ -1,4 +1,3 @@
-import PositionPresets from '../components/filters/PositionPresets.jsx';
 import { activeProfile } from '../utils/activeProfile.js';
 import MetricsPanel from '../components/metrics/MetricsPanel.jsx';
 import PlayerTable from '../components/table/PlayerTable.jsx';
@@ -13,7 +12,6 @@ export default function SearchPage({
   filters,
   leagueOptions,
   onFilterChange,
-  onApplyPositionPreset,
   onReset,
 }) {
   return (
@@ -28,11 +26,9 @@ export default function SearchPage({
         profile={activeProfile(filters)}
         filters={
           <>
-            <PositionPresets
-              onApply={onApplyPositionPreset}
-              onReset={onReset}
-              presetId={filters.presetId}
-            />
+            <button className="initialize-search" onClick={onReset}>
+              Initialiser
+            </button>
             <div
               className="table-selection-filters"
               role="group"

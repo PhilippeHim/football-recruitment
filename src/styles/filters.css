@@ -294,3 +294,12 @@
     flex-wrap: wrap;
   }
 }
+
+.multi-expanded-options .options {
+  max-height: none;
+  overflow: visible;
+}
+.initialize-search {
+  margin-top: 12px;
+  background: #e9efdd;
+}

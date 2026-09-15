@@ -1,5 +1,5 @@
 import { POSITIONS } from './players.js';
-import { RESET_FILTERS } from './filters.js';
+import { RESET_FILTERS, NUMERIC_FILTERS } from './filters.js';
 
 // Point de départ indicatif, ajustable dans les filtres.
 export const POSITION_OVR_MIN = 75;
@@ -32,3 +32,21 @@ export const POSITION_PRESETS = Object.entries(POSITIONS).map(([code, label]) =>
     ...POSITION_MINIMUMS[code],
   },
 }));
+
+// Plusieurs postes partagent les minima les moins restrictifs de leurs profils.
+export function createPositionFilters(codes) {
+  const presets = POSITION_PRESETS.filter((preset) => codes.includes(preset.code));
+  if (!presets.length) return { ...RESET_FILTERS };
+  if (presets.length === 1) return { ...presets[0].filters };
+  return {
+    ...RESET_FILTERS,
+    presetId: 'positions',
+    positions: presets.map((preset) => preset.code),
+    ...Object.fromEntries(
+      NUMERIC_FILTERS.map(({ key }) => [
+        key,
+        Math.min(...presets.map((preset) => preset.filters[key])),
+      ]),
+    ),
+  };
+}
