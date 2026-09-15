@@ -21,8 +21,15 @@ export default function PlayerTableCell({ player, columnKey, minimum }) {
     return (
       <td>
         <strong>{player.Name}</strong>
-        <small>
-          {player.Nation} · {player.gender === 'F' ? 'Femme' : 'Homme'}
+        <small className="player-category">
+          {player.Nation} ·{' '}
+          <img
+            src={`${import.meta.env.BASE_URL}${player.gender === 'F' ? 'female' : 'male'}.png`}
+            alt=""
+            width="16"
+            height="16"
+          />
+          {player.gender === 'F' ? 'Femme' : 'Homme'}
         </small>
       </td>
     );

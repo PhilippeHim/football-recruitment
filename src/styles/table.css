@@ -63,6 +63,15 @@ td small {
 td strong {
   font-weight: 600;
 }
+td .player-category {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.player-category img {
+  flex-shrink: 0;
+  object-fit: contain;
+}
 tbody tr:hover {
   background: #f8faf4;
 }
