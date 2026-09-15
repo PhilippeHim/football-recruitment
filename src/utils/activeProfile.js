@@ -1,4 +1,4 @@
-import { WINGER_FILTERS } from '../constante/filters.js';
+import { WINGER_FILTERS, NUMERIC_FILTERS } from '../constante/filters.js';
 import { POSITION_PRESETS } from '../constante/positionPresets.js';
 import { ROLE_PROFILES, createRoleFilters } from '../constante/roleProfiles.js';
 
@@ -8,9 +8,7 @@ function signature(filters) {
     leagues: [...filters.leagues].sort(),
     gender: filters.gender,
     query: filters.query.trim(),
-    ovr: filters.ovr,
-    pac: filters.pac,
-    dri: filters.dri,
+    scores: NUMERIC_FILTERS.map(({ key }) => filters[key] ?? 0),
     excludeBigFive: filters.excludeBigFive,
     minimums: Object.entries(filters.minimums ?? {}).sort(([a], [b]) =>
       a.localeCompare(b),

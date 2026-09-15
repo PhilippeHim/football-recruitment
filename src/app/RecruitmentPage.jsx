@@ -53,6 +53,7 @@ export default function RecruitmentPage() {
       >
         {!isComparison && !isCatalogue && !isHome && !isLeagues && !isMercato && (
           <FiltersSidebar
+            hideSelectionFilters={page === 'recherche'}
             filters={recruitment.filters}
             leagueOptions={recruitment.leagueOptions}
             onFilterChange={recruitment.updateFilter}
@@ -106,6 +107,8 @@ export default function RecruitmentPage() {
                   tableState={tableState}
                   onReset={recruitment.resetFilters}
                   filters={recruitment.filters}
+                  leagueOptions={recruitment.leagueOptions}
+                  onFilterChange={recruitment.updateFilter}
                 />
               )}
               {page === 'analyse' && (

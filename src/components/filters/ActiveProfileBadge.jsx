@@ -1,14 +1,11 @@
+import { NUMERIC_FILTERS } from '../../constante/filters.js';
 import { activeProfile } from '../../utils/activeProfile.js';
 import { POSITIONS } from '../../constante/players.js';
 import { ROLE_STAT_LABELS } from '../../constante/roleProfiles.js';
 
 export default function ActiveProfileBadge({ filters }) {
   const profile = activeProfile(filters);
-  const scores = [
-    ['OVR', filters.ovr],
-    ['PAC', filters.pac],
-    ['DRI', filters.dri],
-  ]
+  const scores = NUMERIC_FILTERS.map(({ key, short }) => [short, filters[key]])
     .filter(([, value]) => value > 0)
     .map(([key, value]) => `${key} ≥ ${value}`);
   const criteria = Object.entries(filters.minimums ?? {}).map(

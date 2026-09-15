@@ -1,16 +1,14 @@
-import { BIG_FIVE } from '../../constante/leagues.js';
-import { POSITION_OPTIONS } from '../../constante/players.js';
+import SelectionFilters from './SelectionFilters.jsx';
 import { NUMERIC_FILTERS } from '../../constante/filters.js';
-import MultiSelect from './MultiSelect.jsx';
 import ScoreSlider from './ScoreSlider.jsx';
 import ActiveProfileBadge from './ActiveProfileBadge.jsx';
-import CategoryFilter from './CategoryFilter.jsx';
 import BigFiveFilter from './BigFiveFilter.jsx';
 import PlayerSearch from './PlayerSearch.jsx';
 import PositionPresets from './PositionPresets.jsx';
 import RoleCriteria from './RoleCriteria.jsx';
 
 export default function FiltersSidebar({
+  hideSelectionFilters = false,
   filters,
   leagueOptions,
   onFilterChange,
@@ -45,23 +43,13 @@ export default function FiltersSidebar({
       />
       <div className="filter-group">
         <span className="eyebrow">TERRAIN DE RECHERCHE</span>
-        <MultiSelect
-          label="Championnats"
-          options={leagueOptions}
-          selected={filters.leagues}
-          disabledValues={filters.excludeBigFive ? BIG_FIVE : []}
-          onChange={(value) => onFilterChange('leagues', value)}
-        />
-        <MultiSelect
-          label="Postes principaux"
-          options={POSITION_OPTIONS}
-          selected={filters.positions}
-          onChange={(value) => onFilterChange('positions', value)}
-        />
-        <CategoryFilter
-          value={filters.gender}
-          onChange={(value) => onFilterChange('gender', value)}
-        />
+        {!hideSelectionFilters && (
+          <SelectionFilters
+            filters={filters}
+            leagueOptions={leagueOptions}
+            onFilterChange={onFilterChange}
+          />
+        )}
         <BigFiveFilter checked={filters.excludeBigFive} onChange={onToggleBigFive} />
       </div>
       <div className="filter-group">

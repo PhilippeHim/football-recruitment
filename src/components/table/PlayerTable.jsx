@@ -7,6 +7,7 @@ import { TABLE_COLUMNS } from '../../constante/table.js';
 import { ROLE_STAT_LABELS } from '../../constante/roleProfiles.js';
 
 export default function PlayerTable({
+  filters,
   rows,
   comparisonPlayers,
   onTogglePlayer,
@@ -58,6 +59,7 @@ export default function PlayerTable({
         {comparisonPlayers.length === 3 &&
           'Trois profils sélectionnés : retirez-en un pour en ajouter un autre.'}
       </p>
+      {filters}
       <PlayerSearch
         value={query}
         onChange={changeQuery}

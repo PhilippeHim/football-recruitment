@@ -1,3 +1,4 @@
+import { NUMERIC_FILTERS } from '../constante/filters.js';
 import { BIG_FIVE } from '../constante/leagues.js';
 import { normalizeSearch } from './searchText.js';
 
@@ -9,8 +10,12 @@ export function filterPlayers(rows, filters) {
       ? normalizeSearch(`${player.Name} ${player.Team}`)
       : '';
     const matchesQuery = words.every((word) => searchText.includes(word));
-    const matchesScores =
-      player.OVR >= filters.ovr && player.PAC >= filters.pac && player.DRI >= filters.dri;
+    const matchesScores = NUMERIC_FILTERS.every(({ key, short }) => {
+      const minimum = filters[key] ?? 0;
+      return (
+        minimum === 0 || (Number.isFinite(player[short]) && player[short] >= minimum)
+      );
+    });
     const matchesLeague =
       !filters.leagues.length || filters.leagues.includes(player.League);
     const matchesPosition =
