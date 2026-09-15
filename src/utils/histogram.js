@@ -2,7 +2,7 @@ import { NOTE_MIN, NOTE_MAX } from '../constante/players.js';
 import { HISTOGRAM_BIN_WIDTH } from '../constante/charts.js';
 
 /** Intervalles fixes et contigus, y compris ceux sans joueur. */
-export function histogram(rows) {
+export function histogram(rows, key = 'OVR') {
   const binCount = Math.ceil((NOTE_MAX - NOTE_MIN + 1) / HISTOGRAM_BIN_WIDTH);
   const bins = Array.from({ length: binCount }, (_, index) => {
     const start = NOTE_MIN + index * HISTOGRAM_BIN_WIDTH;
@@ -15,8 +15,12 @@ export function histogram(rows) {
     };
   });
   for (const player of rows) {
-    if (player.OVR >= NOTE_MIN && player.OVR <= NOTE_MAX) {
-      const binIndex = Math.floor((player.OVR - NOTE_MIN) / HISTOGRAM_BIN_WIDTH);
+    if (
+      Number.isFinite(player[key]) &&
+      player[key] >= NOTE_MIN &&
+      player[key] <= NOTE_MAX
+    ) {
+      const binIndex = Math.floor((player[key] - NOTE_MIN) / HISTOGRAM_BIN_WIDTH);
       bins[binIndex].count++;
     }
   }

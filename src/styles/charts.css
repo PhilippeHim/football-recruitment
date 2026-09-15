@@ -134,3 +134,18 @@
   align-items: center;
   gap: 6px;
 }
+
+.p90-caption {
+  margin-top: 9px;
+  color: #245caa;
+}
+
+.nationality-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nationality-control img {
+  object-fit: contain;
+  flex-shrink: 0;
+}

@@ -1,3 +1,4 @@
+import { percentile } from '../../utils/percentile.js';
 import { useMemo, useState } from 'react';
 import {
   ReferenceLine,
@@ -26,11 +27,20 @@ import RegressionCaption from './RegressionCaption.jsx';
 import { scoreDomain } from '../../utils/scoreDomain.js';
 
 export default function PaceDribbleChart({ rows }) {
+  const [zoom90, setZoom90] = useState(false);
+  const [showP90, setShowP90] = useState(false);
+  const p90 = useMemo(
+    () => ({ pac: percentile(rows, 'PAC'), dri: percentile(rows, 'DRI') }),
+    [rows],
+  );
   const [showMedian, setShowMedian] = useState(false);
   const [showRegression, setShowRegression] = useState(false);
   const domains = useMemo(
-    () => ({ pac: scoreDomain(rows, 'PAC'), dri: scoreDomain(rows, 'DRI') }),
-    [rows],
+    () =>
+      zoom90
+        ? { pac: [p90.pac ?? 90, 100], dri: [p90.dri ?? 90, 100] }
+        : { pac: scoreDomain(rows, 'PAC'), dri: scoreDomain(rows, 'DRI') },
+    [rows, zoom90, p90],
   );
   const regression = useMemo(() => linearRegression(rows, 'PAC', 'DRI'), [rows]);
   const medians = useMemo(
@@ -53,6 +63,29 @@ export default function PaceDribbleChart({ rows }) {
         onChange={setShowMedian}
         label="Afficher les médianes PAC et DRI"
       />
+      <label className="median-toggle">
+        <input
+          type="checkbox"
+          checked={showP90}
+          onChange={(event) => setShowP90(event.target.checked)}
+        />
+        Afficher le P90 de PAC et DRI
+      </label>
+      <label className="median-toggle">
+        <input
+          type="checkbox"
+          checked={zoom90}
+          onChange={(event) => setZoom90(event.target.checked)}
+        />
+        Zoom du P90 à 100 sur les deux axes
+      </label>
+      {zoom90 && (
+        <p>
+          Le zoom cadre PAC de {formatMean(p90.pac)} à 100 et DRI de {formatMean(p90.dri)}{' '}
+          à 100. Les médianes, P90 et la régression restent calculés sur toute la
+          sélection.
+        </p>
+      )}
       <RegressionToggle
         checked={showRegression}
         onChange={setShowRegression}
@@ -61,7 +94,7 @@ export default function PaceDribbleChart({ rows }) {
       <div
         className="chart-area"
         role="img"
-        aria-label={`Nuage de ${rows.length} joueurs : vitesse PAC de ${domains.pac[0]} à ${domains.pac[1]}, dribble DRI de ${domains.dri[0]} à ${domains.dri[1]}. Axes ajustés à la sélection.`}
+        aria-label={`Nuage de ${rows.length} joueurs : vitesse PAC de ${domains.pac[0]} à ${domains.pac[1]}, dribble DRI de ${domains.dri[0]} à ${domains.dri[1]}. ${zoom90 ? 'Zoom du P90 à 100 sur les deux axes.' : 'Axes ajustés à la sélection.'}`}
       >
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 16, right: 22, bottom: 24, left: 3 }}>
@@ -120,6 +153,22 @@ export default function PaceDribbleChart({ rows }) {
                 strokeDasharray="6 4"
               />
             )}
+            {showP90 && p90.pac !== null && (
+              <ReferenceLine
+                x={p90.pac}
+                stroke="#245caa"
+                strokeWidth={2}
+                strokeDasharray="10 3 2 3"
+              />
+            )}
+            {showP90 && p90.dri !== null && (
+              <ReferenceLine
+                y={p90.dri}
+                stroke="#245caa"
+                strokeWidth={2}
+                strokeDasharray="10 3 2 3"
+              />
+            )}
             {showRegression && regression && (
               <ReferenceLine
                 segment={regression.segment}
@@ -133,11 +182,17 @@ export default function PaceDribbleChart({ rows }) {
       </div>
       <div className="chart-foot">
         <span className="dot" /> Un point = un joueur · Survolez pour voir son profil
-        <span>
-          Axes ajustés à la sélection : PAC {domains.pac[0]}–{domains.pac[1]} · DRI{' '}
-          {domains.dri[0]}–{domains.dri[1]}.
-        </span>
+        <div>
+          {zoom90 ? 'Zoom P90–100' : 'Axes ajustés à la sélection'} : PAC {domains.pac[0]}
+          –{domains.pac[1]} · DRI {domains.dri[0]}–{domains.dri[1]}.
+        </div>
         {showRegression && regression && <RegressionCaption regression={regression} />}
+        {showP90 && (
+          <div className="p90-caption" role="status">
+            P90 : PAC {formatMean(p90.pac)} · DRI {formatMean(p90.dri)}. Les lignes bleues
+            marquent le 90ᵉ percentile de chaque note dans la sélection.
+          </div>
+        )}
         {showMedian && (
           <div className="median-caption" role="status">
             Médianes : PAC {formatMean(medians.pac)} · DRI {formatMean(medians.dri)}. Les

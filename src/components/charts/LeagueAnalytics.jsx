@@ -116,10 +116,12 @@ export default function LeagueAnalytics({ rows }) {
         </label>
       </div>
       <h3>{VIEWS[view].title}</h3>
-      <p>
-        {VIEWS[view].description} Survolez une barre pour le détail. Ces analyses
-        utilisent le dataset complet, indépendamment de la recherche ci-dessous.
-      </p>
+      {view !== 'level' && (
+        <p>
+          {VIEWS[view].description} Survolez une barre pour le détail. Ces analyses
+          utilisent le dataset complet, indépendamment de la recherche ci-dessous.
+        </p>
+      )}
       {view === 'count' && (
         <p>
           Cliquez sur une barre pour analyser les clubs de cette ligue ; le sélecteur de

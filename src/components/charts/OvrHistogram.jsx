@@ -1,3 +1,4 @@
+import { NUMERIC_FILTERS } from '../../constante/filters.js';
 import { useMemo, useState } from 'react';
 import {
   ReferenceLine,
@@ -22,9 +23,10 @@ import { NOTE_MIN, NOTE_MAX } from '../../constante/players.js';
 import MedianToggle from './MedianToggle.jsx';
 
 export default function OvrHistogram({ rows }) {
+  const [stat, setStat] = useState('OVR');
   const [showMedian, setShowMedian] = useState(false);
-  const medianOvr = useMemo(() => median(rows, 'OVR'), [rows]);
-  const bins = histogram(rows);
+  const medianOvr = useMemo(() => median(rows, stat), [rows, stat]);
+  const bins = useMemo(() => histogram(rows, stat), [rows, stat]);
   const peak = bins.reduce(
     (largest, bin) => (bin.count > largest.count ? bin : largest),
     bins[0],
@@ -34,18 +36,28 @@ export default function OvrHistogram({ rows }) {
       <span className="eyebrow">02 / DISTRIBUTION</span>
       <h2>Quel niveau dans la sélection ?</h2>
       <p>
-        L’histogramme compte les joueurs par intervalle de cinq notes OVR pour montrer la
-        répartition des niveaux.
+        L’histogramme compte les joueurs par intervalle de cinq notes {stat} pour montrer
+        la répartition des niveaux.
       </p>
+      <label className="select-label">
+        Note à analyser
+        <select value={stat} onChange={(event) => setStat(event.target.value)}>
+          {NUMERIC_FILTERS.map(({ short, label }) => (
+            <option key={short} value={short}>
+              {short} · {label}
+            </option>
+          ))}
+        </select>
+      </label>
       <MedianToggle
         checked={showMedian}
         onChange={setShowMedian}
-        label="Afficher la médiane OVR"
+        label={`Afficher la médiane ${stat}`}
       />
       <div
         className="chart-area"
         role="img"
-        aria-label={`Histogramme OVR : intervalle le plus fréquent ${peak.label}, ${peak.count} joueurs.`}
+        aria-label={`Histogramme ${stat} : intervalle le plus fréquent ${peak.label}, ${peak.count} joueurs.`}
       >
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -68,7 +80,7 @@ export default function OvrHistogram({ rows }) {
               interval={1}
               height={45}
               label={{
-                value: 'OVR · Intervalles de 5 points',
+                value: `${stat} · Intervalles de 5 points`,
                 position: 'bottom',
                 ...CHART_AXIS_STYLE,
               }}
@@ -82,7 +94,7 @@ export default function OvrHistogram({ rows }) {
             <Tooltip
               formatter={(v) => [v, 'Joueurs']}
               labelFormatter={(value) =>
-                `OVR ${bins.find((bin) => bin.center === value)?.label ?? value}`
+                `${stat} ${bins.find((bin) => bin.center === value)?.label ?? value}`
               }
             />
             <Bar
@@ -106,8 +118,8 @@ export default function OvrHistogram({ rows }) {
         Intervalle le plus fréquent : <strong>{peak.label}</strong> · {peak.count} joueurs
         {showMedian && (
           <div className="median-caption" role="status">
-            Médiane OVR : {formatMean(medianOvr)}. Au moins la moitié des joueurs ont une
-            note inférieure ou égale à cette valeur, et au moins la moitié une note
+            Médiane {stat} : {formatMean(medianOvr)}. Au moins la moitié des joueurs ont
+            une note inférieure ou égale à cette valeur, et au moins la moitié une note
             supérieure ou égale.
           </div>
         )}

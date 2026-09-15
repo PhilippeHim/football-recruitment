@@ -6,14 +6,28 @@ const REFERENCES = [
   { key: 'q1', label: 'Quartile global Q1 (25 %)', color: '#245caa', dash: '3 4' },
   { key: 'q3', label: 'Quartile global Q3 (75 %)', color: '#7d3c98', dash: '12 4 3 4' },
 ];
+const NATIONALITIES = [
+  { value: 'France', label: 'France', flag: 'drp_france.png' },
+  { value: 'England', label: 'Angleterre', flag: 'drp_angleterre.png' },
+  { value: 'Germany', label: 'Allemagne', flag: 'drp_allemagne.png' },
+  { value: 'Italy', label: 'Italie', flag: 'drp_italie.png' },
+  { value: 'Spain', label: 'Espagne', flag: 'drp_espagne.png' },
+];
 const COLORS = ['#147c70', '#c18b28', '#387ca0', '#9b6597', '#6e8550'];
 const format = (value) => value.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
 
 export default function LeagueBoxplot({ rows }) {
+  const [nation, setNation] = useState('');
+  const selectedNation = NATIONALITIES.find((item) => item.value === nation);
+  const nationLabel = selectedNation?.label || 'Toutes les nationalités';
   const [gender, setGender] = useState('');
   const selectedRows = useMemo(
-    () => (gender ? rows.filter((player) => player.gender === gender) : rows),
-    [rows, gender],
+    () =>
+      rows.filter(
+        (player) =>
+          (!gender || player.gender === gender) && (!nation || player.Nation === nation),
+      ),
+    [rows, gender, nation],
   );
   const [sortBy, setSortBy] = useState('median');
   const [direction, setDirection] = useState('desc');
@@ -65,21 +79,41 @@ export default function LeagueBoxplot({ rows }) {
   return (
     <section
       className="card league-boxplot"
-      aria-label="Distribution OVR par championnat"
+      aria-label={
+        nation
+          ? 'Distribution OVR par nationalité et championnat'
+          : 'Distribution OVR par championnat'
+      }
     >
       <h2>Le niveau des joueurs par championnat</h2>
-      <p>
-        Distribution des notes OVR du vivier pour la catégorie sélectionnée, classées par
-        OVR {sortBy === 'mean' ? 'moyen' : 'médian'} en ordre{' '}
-        {direction === 'desc' ? 'décroissant' : 'croissant'}. Chaque boîte représente les
-        50 % centraux des joueurs ; le trait intérieur indique la médiane. Les moustaches
-        vont jusqu’aux notes situées à moins de 1,5 fois l’écart interquartile des bords
-        de la boîte. Les cercles montrent les notes au-delà.
-      </p>
-      <p>
-        Survolez une boîte pour les valeurs. Faites défiler horizontalement pour voir
-        toutes les ligues.
-      </p>
+      <div className="nationality-control">
+        <label className="select-label">
+          Nationalité représentée
+          <select value={nation} onChange={(event) => setNation(event.target.value)}>
+            <option value="">Toutes les nationalités</option>
+            {NATIONALITIES.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        {selectedNation && (
+          <img
+            src={`${import.meta.env.BASE_URL}${selectedNation.flag}`}
+            alt={`Drapeau : ${nationLabel}`}
+            width="32"
+            height="24"
+          />
+        )}
+      </div>
+      {nation && (
+        <p>
+          Nationalité : {nationLabel} · {selectedRows.length} joueurs · {groups.length}{' '}
+          ligues représentées. Les boîtes et les repères globaux portent uniquement sur
+          cette nationalité et la catégorie choisie.
+        </p>
+      )}
       <div className="analytics-controls" role="group" aria-label="Classement des ligues">
         <label>
           Catégorie{' '}
@@ -201,7 +235,7 @@ export default function LeagueBoxplot({ rows }) {
                       y={y(group.q3)}
                       width={half * 2}
                       height={Math.max(1, y(group.q1) - y(group.q3))}
-                      fill={COLORS[index % COLORS.length]}
+                      fill={nation ? '#2386c0' : COLORS[index % COLORS.length]}
                       fillOpacity={0.8}
                       stroke="#344b44"
                     />
@@ -274,6 +308,7 @@ export default function LeagueBoxplot({ rows }) {
               <table>
                 <caption className="sr-only">
                   Distribution des notes OVR par championnat
+                  {nation ? ` · ${nationLabel}` : ''}
                 </caption>
                 <thead>
                   <tr>
