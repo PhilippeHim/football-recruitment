@@ -1,4 +1,15 @@
+import { price } from '../../constante/mercato.js';
+import { marketValue } from '../../utils/marketValue.js';
+
 export default function PlayerTableCell({ player, columnKey, minimum }) {
+  if (columnKey === 'market_value_in_eur') {
+    const value = price(player);
+    return (
+      <td className={value === null ? 'market-value-unavailable' : undefined}>
+        {value === null ? 'Non disponible' : marketValue(value)}
+      </td>
+    );
+  }
   if (minimum !== undefined)
     return (
       <td>

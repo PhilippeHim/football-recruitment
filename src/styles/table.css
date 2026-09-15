@@ -1,6 +1,10 @@
 .table-card {
   margin-top: 20px;
 }
+.market-value-unavailable {
+  color: #b42318;
+  font-weight: 600;
+}
 .table-title {
   display: flex;
   justify-content: space-between;
