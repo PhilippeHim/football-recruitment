@@ -19,7 +19,7 @@ export default function ComparisonPage({ comparison, filteredRows }) {
           <span className="eyebrow">VOTRE LISTE EST PRÊTE À ÊTRE CRÉÉE</span>
           <h2>Quels profils souhaitez-vous comparer ?</h2>
           <p>
-            Retenez deux ou trois joueurs dans la page Rechercher. Vous retrouverez ici
+            Retenez deux ou trois joueurs dans la page Les joueurs. Vous retrouverez ici
             leur radar, leurs notes détaillées et les écarts qui les distinguent.
           </p>
           <ol>
@@ -28,7 +28,7 @@ export default function ComparisonPage({ comparison, filteredRows }) {
             <li>Revenez ici pour confronter leurs profils.</li>
           </ol>
           <a className="action-link" href="#/recherche">
-            Rechercher des joueurs →
+            Voir les joueurs →
           </a>
         </section>
       )}

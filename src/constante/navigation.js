@@ -8,21 +8,21 @@ export const PAGES = [
   },
   {
     id: 'profils',
-    title: 'Profils métier',
+    title: 'Profils de postes',
     step: '01',
     description: 'Définir la mission du joueur',
   },
   {
-    id: 'recherche',
-    title: 'Rechercher',
-    step: '02',
-    description: 'Trouver et retenir des profils',
-  },
-  {
     id: 'analyse',
     title: 'Analyser la sélection',
-    step: '03',
+    step: '02',
     description: 'Explorer les tendances et les ligues',
+  },
+  {
+    id: 'recherche',
+    title: 'Les joueurs',
+    step: '03',
+    description: 'Trouver et retenir des profils',
   },
   {
     id: 'comparaison',

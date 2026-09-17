@@ -53,7 +53,7 @@ export default function RoleProfilesPage({ rows, onApply, onApplyWinger }) {
       </div>
       <p className="role-note">
         Vous cherchez uniquement un poste, notamment un gardien ? Les douze raccourcis par
-        poste restent accessibles sur la page <a href="#/recherche">Rechercher</a>.
+        poste restent accessibles sur la page <a href="#/recherche">Les joueurs</a>.
       </p>
       <section className="card winger-example">
         <span className="eyebrow">EXEMPLE DU MINI-PROJET</span>

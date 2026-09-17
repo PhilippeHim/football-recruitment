@@ -2,7 +2,7 @@
 
 Application pédagogique pour préparer une présélection de joueurs à partir des notes EA Sports FC. Développée avec React, Vite, Recharts et PapaParse ; les données sont chargées depuis un CSV et les calculs s’effectuent dans le navigateur.
 
-**Parcours :** Accueil → Ligues et clubs → Profils métier → Rechercher → Analyser la sélection → Comparer les joueurs → Mon mercato. Huit profils métier proposent des seuils ajustables ; la recherche permet de filtrer les joueurs et de trier les résultats. Le comparateur accueille jusqu’à trois joueurs de champ, avec un radar et les notes détaillées.
+**Parcours :** Accueil → Ligues et clubs → Profils de postes → Analyser la sélection → Les joueurs → Comparer les joueurs → Mon mercato. Huit profils de postes proposent des seuils ajustables ; la page Les joueurs permet de filtrer les joueurs et de trier les résultats. Le comparateur accueille jusqu’à trois joueurs de champ, avec un radar et les notes détaillées.
 
 **Analyse et mercato :** histogramme des notes globales (OVR), comparaison des ligues et nuage vitesse–dribble (PAC–DRI), avec options de médianes et de régression. Mon mercato permet de composer un onze, de suivre un budget et des objectifs de niveau et de jeunesse, puis de simuler une revalorisation. Le projet mercato est enregistré dans le stockage local du navigateur.
 

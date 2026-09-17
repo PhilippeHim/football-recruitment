@@ -92,7 +92,7 @@ La comparaison n’affiche pas de barre latérale de filtres : elle offre une vu
 
 L’exemple de défenseur relanceur réutilise la définition de `roleProfiles.js` et calcule son effectif réel. Son bouton applique le même profil que le catalogue. Le contenu de présentation reste disponible si le CSV ne charge pas ; l’exemple est alors désactivé. Les liens vers les outils et le retour à l’accueil conservent les filtres et la comparaison pendant la session.
 
-## Profils métier
+## Profils de postes
 
 `constante/roleProfiles.js` définit huit missions de joueurs de champ, les postes associés, trois seuils par rôle et leurs libellés. `createRoleFilters` prépare une recherche neuve avec OVR ≥ 75 ; ces valeurs sont des hypothèses pédagogiques, pas des standards sportifs. `RoleProfilesPage` affiche les résultats disponibles sur le dataset complet avant application, avec un filtre par famille.
 
