@@ -15,9 +15,13 @@ export default function PlayerTableHead({ sort, onSort, columns = TABLE_COLUMNS 
           const arrow = isSorted ? (sort.direction === 'asc' ? '↑' : '↓') : '↕';
           return (
             <th key={column.key} aria-sort={ariaSort}>
-              <button onClick={() => onSort(column.key)}>
-                {column.label} <span>{arrow}</span>
-              </button>
+              {column.sortable === false ? (
+                <span className="static-column-label">{column.label}</span>
+              ) : (
+                <button onClick={() => onSort(column.key)}>
+                  {column.label} <span>{arrow}</span>
+                </button>
+              )}
             </th>
           );
         })}

@@ -2,6 +2,7 @@ export const PAGE_SIZE = 20;
 export const DEFAULT_SORT = { key: 'OVR', direction: 'desc' };
 export const TABLE_COLUMNS = [
   { key: 'Name', label: 'Joueur' },
+  { key: 'goalkeeper', label: 'Gardien', sortable: false },
   { key: 'Age', label: 'Âge' },
   { key: 'Position', label: 'Poste' },
   { key: 'Team', label: 'Club' },

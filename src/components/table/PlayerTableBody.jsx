@@ -8,12 +8,13 @@ export default function PlayerTableBody({
   onTogglePlayer,
   columns = TABLE_COLUMNS,
   roleMinimums = {},
+  onPreviewPlayer,
 }) {
   return (
     <tbody>
       {rows.map((player) => {
         const checked = comparisonPlayers.some((item) => item.id === player.id);
-        const isGoalkeeper = player.Position === 'GK';
+        const isGoalkeeper = player.Position?.trim() === 'GK';
         const disabled =
           isGoalkeeper ||
           (!checked && comparisonPlayers.length >= MAX_COMPARISON_PLAYERS);
@@ -35,6 +36,7 @@ export default function PlayerTableBody({
                 player={player}
                 columnKey={column.key}
                 minimum={roleMinimums[column.key]}
+                onPreviewPlayer={onPreviewPlayer}
               />
             ))}
           </tr>

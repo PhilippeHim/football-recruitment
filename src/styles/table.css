@@ -39,6 +39,13 @@ th button {
   font-size: 11px;
   color: #728169;
 }
+th .static-column-label {
+  display: inline-block;
+  padding: 6px 0;
+  white-space: nowrap;
+  font-size: 11px;
+  color: #728169;
+}
 th span {
   margin-left: 5px;
 }
@@ -50,8 +57,12 @@ td {
 td:nth-child(2) {
   min-width: 160px;
 }
-td:nth-child(5),
-td:nth-child(6) {
+td:nth-child(3) {
+  min-width: 58px;
+  width: 58px;
+}
+td:nth-child(6),
+td:nth-child(7) {
   min-width: 125px;
 }
 td small {
@@ -62,6 +73,41 @@ td small {
 }
 td strong {
   font-weight: 600;
+}
+.player-name-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.player-name-button:hover strong,
+.player-name-button:focus-visible strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.player-name-button:focus-visible {
+  outline: 2px solid #c28a1d;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.table-goalkeeper-icon {
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  border: 1px solid #c9d4c3;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.goalkeeper-cell {
+  text-align: center;
 }
 td .player-category {
   display: flex;

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { formatCount } from '../../utils/formatNumber.js';
 import PlayerTableHead from './PlayerTableHead.jsx';
 import PlayerTableBody from './PlayerTableBody.jsx';
@@ -5,6 +6,7 @@ import TablePagination from './TablePagination.jsx';
 import PlayerSearch from '../filters/PlayerSearch.jsx';
 import { TABLE_COLUMNS } from '../../constante/table.js';
 import { ROLE_STAT_LABELS } from '../../constante/roleProfiles.js';
+import PlayerIdentity from '../players/PlayerIdentity.jsx';
 
 export default function PlayerTable({
   profile,
@@ -15,6 +17,7 @@ export default function PlayerTable({
   tableState,
   roleMinimums = {},
 }) {
+  const [previewPlayer, setPreviewPlayer] = useState(null);
   const hasRole = Object.keys(roleMinimums).length > 0;
   const baseColumns = hasRole
     ? TABLE_COLUMNS.filter((column) => !['PAC', 'DRI', 'SHO'].includes(column.key))
@@ -66,6 +69,14 @@ export default function PlayerTable({
         label="Rechercher dans le tableau"
         help=""
       />
+      {previewPlayer && (
+        <PlayerIdentity
+          key={previewPlayer.id}
+          player={previewPlayer}
+          onClose={() => setPreviewPlayer(null)}
+          closeOnPointerLeave
+        />
+      )}
       {matchingCount === 0 ? (
         <p role="status">
           Aucun joueur ne correspond dans le tableau. Modifiez ou effacez cette recherche.
@@ -84,6 +95,7 @@ export default function PlayerTable({
                 onTogglePlayer={onTogglePlayer}
                 columns={columns}
                 roleMinimums={roleMinimums}
+                onPreviewPlayer={setPreviewPlayer}
               />
             </table>
           </div>

@@ -21,7 +21,12 @@ const GOALKEEPER_STATS = {
   'GK.Reflexes': 'Réflexes',
 };
 
-export default function PlayerIdentity({ player, onClose, mercato }) {
+export default function PlayerIdentity({
+  player,
+  onClose,
+  mercato,
+  closeOnPointerLeave = false,
+}) {
   const dialog = useRef(null);
   useEffect(() => {
     const element = dialog.current;
@@ -57,6 +62,7 @@ export default function PlayerIdentity({ player, onClose, mercato }) {
         event.preventDefault();
         onClose();
       }}
+      onPointerLeave={closeOnPointerLeave ? onClose : undefined}
     >
       <header>
         <div>
