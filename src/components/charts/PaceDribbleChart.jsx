@@ -16,6 +16,7 @@ import {
   CHART_AXIS_STYLE,
   MEDIAN_COLOR,
   REGRESSION_COLOR,
+  SCATTER_SAMPLE_LIMIT,
 } from '../../constante/charts.js';
 import PlayerTooltip from './PlayerTooltip.jsx';
 import MedianToggle from './MedianToggle.jsx';
@@ -25,10 +26,15 @@ import { linearRegression } from '../../utils/linearRegression.js';
 import RegressionToggle from './RegressionToggle.jsx';
 import RegressionCaption from './RegressionCaption.jsx';
 import { scoreDomain } from '../../utils/scoreDomain.js';
+import { sampleRows } from '../../utils/sampleRows.js';
 
 export default function PaceDribbleChart({ rows }) {
   const [zoom90, setZoom90] = useState(false);
   const [showP90, setShowP90] = useState(false);
+  const scatterRows = useMemo(
+    () => sampleRows(rows, SCATTER_SAMPLE_LIMIT),
+    [rows],
+  );
   const p90 = useMemo(
     () => ({ pac: percentile(rows, 'PAC'), dri: percentile(rows, 'DRI') }),
     [rows],
@@ -94,7 +100,7 @@ export default function PaceDribbleChart({ rows }) {
       <div
         className="chart-area"
         role="img"
-        aria-label={`Nuage de ${rows.length} joueurs : vitesse PAC de ${domains.pac[0]} à ${domains.pac[1]}, dribble DRI de ${domains.dri[0]} à ${domains.dri[1]}. ${zoom90 ? 'Zoom du P90 à 100 sur les deux axes.' : 'Axes ajustés à la sélection.'}`}
+        aria-label={`Nuage de ${rows.length} joueurs, dont ${scatterRows.length} affichés : vitesse PAC de ${domains.pac[0]} à ${domains.pac[1]}, dribble DRI de ${domains.dri[0]} à ${domains.dri[1]}. ${zoom90 ? 'Zoom du P90 à 100 sur les deux axes.' : 'Axes ajustés à la sélection.'}`}
       >
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 16, right: 22, bottom: 24, left: 3 }}>
@@ -132,7 +138,7 @@ export default function PaceDribbleChart({ rows }) {
             />
             <Tooltip content={<PlayerTooltip />} />
             <Scatter
-              data={rows}
+              data={scatterRows}
               fill={CHART_COLOR}
               fillOpacity={0.35}
               isAnimationActive={false}
@@ -182,6 +188,8 @@ export default function PaceDribbleChart({ rows }) {
       </div>
       <div className="chart-foot">
         <span className="dot" /> Un point = un joueur · Survolez pour voir son profil
+        {scatterRows.length < rows.length &&
+          ` · ${scatterRows.length.toLocaleString('fr-FR')} points affichés sur ${rows.length.toLocaleString('fr-FR')}`}
         <div>
           {zoom90 ? 'Zoom P90–100' : 'Axes ajustés à la sélection'} : PAC {domains.pac[0]}
           –{domains.pac[1]} · DRI {domains.dri[0]}–{domains.dri[1]}.

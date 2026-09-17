@@ -17,7 +17,7 @@ export default function SearchPage({
   return (
     <>
       <ActiveRoleSummary filters={filters} count={rows.length} />
-      <MetricsPanel rows={rows} totalCount={totalCount} />
+      <MetricsPanel rows={rows} totalCount={totalCount} filters={filters} />
       <div className="page-next">
         <p>Filtrez les profils, puis cochez jusqu’à trois joueurs pour les comparer.</p>
         <a href="#/analyse">Explorer cette sélection →</a>

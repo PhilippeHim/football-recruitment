@@ -2,10 +2,10 @@ import ChartsPanel from '../components/charts/ChartsPanel.jsx';
 import MetricsPanel from '../components/metrics/MetricsPanel.jsx';
 import EmptyState from '../components/feedback/EmptyState.jsx';
 
-export default function AnalysisPage({ rows, totalCount, onReset }) {
+export default function AnalysisPage({ rows, totalCount, filters, onReset }) {
   return (
     <>
-      <MetricsPanel rows={rows} totalCount={totalCount} />
+      <MetricsPanel rows={rows} totalCount={totalCount} filters={filters} />
       <div className="page-next">
         <p>Les graphiques décrivent les profils correspondant à vos filtres.</p>
         <a href="#/recherche">Retrouver les joueurs →</a>

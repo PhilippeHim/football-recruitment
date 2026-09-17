@@ -114,6 +114,7 @@ export default function RecruitmentPage() {
                 <AnalysisPage
                   rows={recruitment.selectedPlayers}
                   totalCount={rows.length}
+                  filters={recruitment.filters}
                   onReset={recruitment.resetFilters}
                 />
               )}

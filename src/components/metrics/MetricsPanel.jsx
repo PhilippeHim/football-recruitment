@@ -1,14 +1,15 @@
 import { mean } from '../../utils/mean.js';
 import { formatCount, formatMean } from '../../utils/formatNumber.js';
+import { filterScope } from '../../utils/filterScope.js';
 import MetricCard from './MetricCard.jsx';
 
-export default function MetricsPanel({ rows, totalCount }) {
+export default function MetricsPanel({ rows, totalCount, filters }) {
   return (
     <div className="metrics">
       <MetricCard
         label="Profils retenus"
-        value={formatCount(rows.length)}
-        description={`sur ${formatCount(totalCount)} joueurs`}
+        value={`${formatCount(rows.length)}/${formatCount(totalCount)} joueurs`}
+        description={filterScope(filters)}
         primary
       />
       <MetricCard
