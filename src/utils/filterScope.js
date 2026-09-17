@@ -28,6 +28,18 @@ export function filterScope(filters) {
   return [
     listSummary(positions, 'Tous postes', 'poste', 'postes'),
     listSummary(filters.leagues, 'Tous championnats', 'championnat', 'championnats'),
+    listSummary(filters.nations ?? [], 'Toutes nationalités', 'nationalité', 'nationalités'),
+    (filters.teams ?? []).length
+      ? listSummary(filters.teams, 'Tous clubs', 'club', 'clubs')
+      : null,
+    (filters.ages ?? []).length
+      ? listSummary(
+          filters.ages.map((age) => `${age} ans`),
+          'Tous âges',
+          'âge',
+          'âges',
+        )
+      : null,
     gender,
     filters.excludeBigFive ? 'Hors 5 grands masculins' : null,
     [...scores, ...criteria].join(' · ') || null,

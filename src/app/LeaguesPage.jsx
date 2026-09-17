@@ -1,15 +1,25 @@
 import LeagueRadar from '../components/charts/LeagueRadar.jsx';
 import LeagueBoxplot from '../components/charts/LeagueBoxplot.jsx';
 import LeagueAnalytics from '../components/charts/LeagueAnalytics.jsx';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { leagueHierarchy } from '../utils/leagueHierarchy.js';
 import LeagueBranch from '../components/layout/LeagueBranch.jsx';
 import PlayerIdentity from '../components/players/PlayerIdentity.jsx';
+
+function readLeagueTarget() {
+  const [, queryString = ''] = window.location.hash.split('?');
+  const params = new URLSearchParams(queryString);
+  return {
+    league: params.get('league') || '',
+    club: params.get('club') || '',
+  };
+}
 
 export default function LeaguesPage({ rows, mercato }) {
   const [query, setQuery] = useState('');
   const [gender, setGender] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [target, setTarget] = useState(readLeagueTarget);
   const leagues = useMemo(
     () =>
       leagueHierarchy(
@@ -18,6 +28,43 @@ export default function LeaguesPage({ rows, mercato }) {
       ),
     [rows, query, gender],
   );
+  useEffect(() => {
+    function syncTarget() {
+      setTarget(readLeagueTarget());
+    }
+
+    syncTarget();
+    window.addEventListener('hashchange', syncTarget);
+    return () => window.removeEventListener('hashchange', syncTarget);
+  }, []);
+  useEffect(() => {
+    if (!target.league) return;
+    setQuery('');
+    setGender('');
+  }, [target.league, target.club]);
+  useEffect(() => {
+    if (!target.league) return;
+
+    let innerFrame = 0;
+    const frame = requestAnimationFrame(() => {
+      innerFrame = requestAnimationFrame(() => {
+        const leagueElement = [...document.querySelectorAll('.league-branch')].find(
+          (candidate) => candidate.dataset.league === target.league,
+        );
+        const clubElement =
+          target.club && leagueElement
+            ? [...leagueElement.querySelectorAll('.club-branch')].find(
+                (candidate) => candidate.dataset.club === target.club,
+              )
+            : null;
+        (clubElement || leagueElement)?.scrollIntoView({ block: 'center' });
+      });
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(innerFrame);
+    };
+  }, [leagues, target.league, target.club]);
   return (
     <section className="league-directory" aria-label="Organigramme des ligues et clubs">
       {selectedPlayer && (
@@ -67,7 +114,8 @@ export default function LeaguesPage({ rows, mercato }) {
             <LeagueBranch
               key={`${query}:${league.name}`}
               league={league}
-              expanded={Boolean(query.trim())}
+              expanded={Boolean(query.trim()) || league.name === target.league}
+              targetClub={league.name === target.league ? target.club : ''}
               onSelectPlayer={setSelectedPlayer}
             />
           ))}

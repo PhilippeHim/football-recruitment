@@ -11,9 +11,11 @@ import PlayerIdentity from '../players/PlayerIdentity.jsx';
 export default function PlayerTable({
   profile,
   filters,
+  searchAction,
   rows,
   comparisonPlayers,
   onTogglePlayer,
+  onQuickFilter,
   tableState,
   roleMinimums = {},
 }) {
@@ -68,12 +70,14 @@ export default function PlayerTable({
         onChange={changeQuery}
         label="Rechercher dans le tableau"
         help=""
+        action={searchAction}
       />
       {previewPlayer && (
         <PlayerIdentity
           key={previewPlayer.id}
           player={previewPlayer}
           onClose={() => setPreviewPlayer(null)}
+          onQuickFilter={onQuickFilter}
           closeOnPointerLeave
         />
       )}
@@ -93,6 +97,7 @@ export default function PlayerTable({
                 rows={visiblePlayers}
                 comparisonPlayers={comparisonPlayers}
                 onTogglePlayer={onTogglePlayer}
+                onQuickFilter={onQuickFilter}
                 columns={columns}
                 roleMinimums={roleMinimums}
                 onPreviewPlayer={setPreviewPlayer}

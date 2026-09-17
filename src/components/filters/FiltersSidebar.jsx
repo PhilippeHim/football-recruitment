@@ -9,6 +9,7 @@ export default function FiltersSidebar({
   hideSelectionFilters = false,
   filters,
   leagueOptions,
+  nationalityOptions,
   onFilterChange,
   onToggleBigFive,
   onReset,
@@ -34,6 +35,7 @@ export default function FiltersSidebar({
           <SelectionFilters
             filters={filters}
             leagueOptions={leagueOptions}
+            nationalityOptions={nationalityOptions}
             onFilterChange={onFilterChange}
           />
         )}

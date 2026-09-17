@@ -44,9 +44,14 @@
 }
 .player-search {
   margin-top: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  align-items: end;
 }
 .player-search > label {
   display: block;
+  grid-column: 1 / -1;
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 6px;
@@ -73,8 +78,13 @@
 }
 .player-search > small {
   display: block;
+  grid-column: 1 / -1;
   color: #68796d;
   margin-top: 6px;
+}
+.search-action {
+  display: flex;
+  align-items: stretch;
 }
 .preset {
   display: block;
@@ -268,6 +278,12 @@
   .table-selection-filters {
     grid-template-columns: 1fr;
   }
+  .player-search {
+    grid-template-columns: 1fr;
+  }
+  .search-action {
+    align-items: stretch;
+  }
 }
 
 .position-presets-controls {
@@ -300,6 +316,7 @@
   overflow: visible;
 }
 .initialize-search {
-  margin-top: 12px;
   background: #e9efdd;
+  height: 100%;
+  white-space: nowrap;
 }

@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { price } from '../../constante/mercato.js';
 import { COMPARISON_COLORS } from '../../constante/comparison.js';
 import { comparePlayers } from '../../utils/comparePlayers.js';
 import ComparisonRadar from './ComparisonRadar.jsx';
 import ComparisonValues from './ComparisonValues.jsx';
+import PlayerIdentity from '../players/PlayerIdentity.jsx';
 
 export default function ComparisonPanel({ players, filteredRows, onRemove, onClear }) {
+  const [previewPlayer, setPreviewPlayer] = useState(null);
   const stats = comparePlayers(players);
   const largestGap = stats.reduce(
     (largest, stat) => (stat.gap > largest.gap ? stat : largest),
@@ -30,6 +33,14 @@ export default function ComparisonPanel({ players, filteredRows, onRemove, onCle
         À niveau global proche, les qualités peuvent différer. Comparez la forme des
         profils, puis les notes exactes selon le poste recherché.
       </p>
+      {previewPlayer && (
+        <PlayerIdentity
+          key={previewPlayer.id}
+          player={previewPlayer}
+          onClose={() => setPreviewPlayer(null)}
+          closeOnPointerLeave
+        />
+      )}
       <div className="comparison-player-cards">
         {players.map((player, index) => (
           <article
@@ -38,9 +49,17 @@ export default function ComparisonPanel({ players, filteredRows, onRemove, onCle
             style={{ borderTopColor: COMPARISON_COLORS[index] }}
           >
             <div>
-              <strong style={{ color: COMPARISON_COLORS[index] }}>
+              <button
+                type="button"
+                className="comparison-player-name"
+                style={{ color: COMPARISON_COLORS[index] }}
+                onPointerEnter={() => setPreviewPlayer(player)}
+                onFocus={() => setPreviewPlayer(player)}
+                onClick={() => setPreviewPlayer(player)}
+                aria-label={`Afficher la fiche de ${player.Name}`}
+              >
                 {index + 1}. {player.Name}
-              </strong>
+              </button>
               <button
                 onClick={() => onRemove(player.id)}
                 aria-label={`Retirer ${player.Name} de la comparaison`}

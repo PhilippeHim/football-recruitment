@@ -15,11 +15,27 @@ export function useRecruitment(rows) {
       .sort((a, b) => a.localeCompare(b))
       .map((league) => ({ value: league, label: league }));
   }, [rows]);
+  const nationalityOptions = useMemo(() => {
+    const nations = [...new Set(rows.map((player) => player.Nation).filter(Boolean))];
+    return nations
+      .sort((a, b) => a.localeCompare(b))
+      .map((nation) => ({ value: nation, label: nation }));
+  }, [rows]);
 
   function updateFilter(key, value) {
     setFilters((current) =>
       key === 'positions' ? createPositionFilters(value) : { ...current, [key]: value },
     );
+  }
+  function quickFilter(key, value) {
+    const nextValue = key === 'gender' ? value : [value];
+    setFilters((current) => ({
+      ...current,
+      [key]: nextValue,
+      presetId: key === 'positions' ? null : current.presetId,
+      roleId: key === 'positions' ? null : current.roleId,
+      minimums: key === 'positions' ? {} : current.minimums,
+    }));
   }
   function toggleBigFive(excluded) {
     // Retirer les choix devenus interdits évite une combinaison de filtres contradictoire.
@@ -59,7 +75,9 @@ export function useRecruitment(rows) {
     filters,
     selectedPlayers,
     leagueOptions,
+    nationalityOptions,
     updateFilter,
+    quickFilter,
     toggleBigFive,
     resetFilters,
     applyWingerPreset,

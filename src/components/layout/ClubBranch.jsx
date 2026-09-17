@@ -1,20 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { POSITIONS } from '../../constante/players.js';
 import { marketValue } from '../../utils/marketValue.js';
 
 /** Les effectifs sont rendus à l'ouverture pour alléger les grandes ligues. */
-export default function ClubBranch({ club, onSelectPlayer }) {
-  const [expanded, setExpanded] = useState(false);
+export default function ClubBranch({ club, expanded = false, onSelectPlayer }) {
+  const [isExpanded, setIsExpanded] = useState(expanded);
+  useEffect(() => {
+    if (expanded) setIsExpanded(true);
+  }, [expanded]);
   return (
     <details
       className="club-branch"
-      onToggle={(event) => setExpanded(event.currentTarget.open)}
+      open={isExpanded || undefined}
+      data-club={club.name}
+      onToggle={(event) => setIsExpanded(event.currentTarget.open)}
     >
       <summary>
         <strong>{club.name}</strong>
         <span>{club.count} joueurs</span>
       </summary>
-      {expanded && (
+      {isExpanded && (
         <ul className="roster-branches" aria-label={`Effectif de ${club.name}`}>
           {club.players.map((player) => (
             <li key={player.id}>

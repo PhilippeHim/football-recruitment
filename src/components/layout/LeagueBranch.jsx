@@ -1,8 +1,12 @@
 import ClubBranch from './ClubBranch.jsx';
 
-export default function LeagueBranch({ league, expanded, onSelectPlayer }) {
+export default function LeagueBranch({ league, expanded, targetClub, onSelectPlayer }) {
   return (
-    <details className="league-branch" open={expanded || undefined}>
+    <details
+      className="league-branch"
+      open={expanded || undefined}
+      data-league={league.name}
+    >
       <summary>
         <strong>{league.name}</strong>
         {league.genders.map((gender) => (
@@ -28,7 +32,11 @@ export default function LeagueBranch({ league, expanded, onSelectPlayer }) {
       <ul className="club-branches">
         {league.clubs.map((club) => (
           <li key={club.name}>
-            <ClubBranch club={club} onSelectPlayer={onSelectPlayer} />
+            <ClubBranch
+              club={club}
+              expanded={club.name === targetClub}
+              onSelectPlayer={onSelectPlayer}
+            />
           </li>
         ))}
       </ul>

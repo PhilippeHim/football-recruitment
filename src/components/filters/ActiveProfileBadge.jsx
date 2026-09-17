@@ -28,6 +28,12 @@ export default function ActiveProfileBadge({ filters }) {
       <small>{[...scores, ...criteria].join(' · ') || 'Aucun seuil de note'}</small>
       <small>
         {filters.leagues.length ? filters.leagues.join(' · ') : 'Tous les championnats'}
+        {' · '}
+        {filters.nations?.length ? filters.nations.join(' · ') : 'Toutes nationalités'}
+        {filters.teams?.length ? ` · ${filters.teams.join(' · ')}` : ''}
+        {filters.ages?.length
+          ? ` · ${filters.ages.map((age) => `${age} ans`).join(' · ')}`
+          : ''}
         {filters.excludeBigFive ? ' · Hors des 5 grands masculins' : ''} ·{' '}
         {filters.gender === 'M'
           ? 'Hommes'

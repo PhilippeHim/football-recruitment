@@ -6,6 +6,7 @@ export default function PlayerTableBody({
   rows,
   comparisonPlayers,
   onTogglePlayer,
+  onQuickFilter,
   columns = TABLE_COLUMNS,
   roleMinimums = {},
   onPreviewPlayer,
@@ -36,6 +37,7 @@ export default function PlayerTableBody({
                 player={player}
                 columnKey={column.key}
                 minimum={roleMinimums[column.key]}
+                onQuickFilter={onQuickFilter}
                 onPreviewPlayer={onPreviewPlayer}
               />
             ))}

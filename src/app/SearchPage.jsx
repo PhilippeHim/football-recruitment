@@ -11,7 +11,9 @@ export default function SearchPage({
   tableState,
   filters,
   leagueOptions,
+  nationalityOptions,
   onFilterChange,
+  onQuickFilter,
   onReset,
 }) {
   return (
@@ -24,27 +26,29 @@ export default function SearchPage({
       </div>
       <PlayerTable
         profile={activeProfile(filters)}
+        searchAction={
+          <button className="initialize-search" onClick={onReset}>
+            Initialiser
+          </button>
+        }
         filters={
-          <>
-            <button className="initialize-search" onClick={onReset}>
-              Initialiser
-            </button>
-            <div
-              className="table-selection-filters"
-              role="group"
-              aria-label="Filtres des résultats"
-            >
-              <SelectionFilters
-                filters={filters}
-                leagueOptions={leagueOptions}
-                onFilterChange={onFilterChange}
-              />
-            </div>
-          </>
+          <div
+            className="table-selection-filters"
+            role="group"
+            aria-label="Filtres des résultats"
+          >
+            <SelectionFilters
+              filters={filters}
+              leagueOptions={leagueOptions}
+              nationalityOptions={nationalityOptions}
+              onFilterChange={onFilterChange}
+            />
+          </div>
         }
         rows={rows}
         comparisonPlayers={comparison.players}
         onTogglePlayer={comparison.togglePlayer}
+        onQuickFilter={onQuickFilter}
         tableState={tableState}
         roleMinimums={filters.minimums}
       />

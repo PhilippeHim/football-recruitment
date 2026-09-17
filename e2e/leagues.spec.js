@@ -40,3 +40,23 @@ test('Organigramme, recherche de club et affichage mobile', async ({ page }) => 
     .toBe(true);
   await page.screenshot({ path: 'test-results/leagues-mobile.png', fullPage: true });
 });
+
+test('La fiche joueur renvoie vers la ligue et le club déployés', async ({ page }) => {
+  await page.goto('/#ligues?league=Liga+F&club=FC+Barcelona');
+  await expect(page).toHaveTitle(/Ligues et clubs/);
+
+  await page.goto('/#/recherche');
+  const table = page.locator('#players-table');
+  await table.getByRole('searchbox', { name: 'Rechercher dans le tableau' }).fill(
+    'Aitana Bonmatí',
+  );
+  await table.getByRole('button', { name: 'Afficher la fiche de Aitana Bonmatí' }).click();
+  await page.getByRole('dialog').getByRole('link', { name: 'FC Barcelona' }).click();
+
+  await expect(page).toHaveURL(/#\/ligues\?league=Liga\+F&club=FC\+Barcelona$/);
+  const league = page.locator('.league-branch[data-league="Liga F"]');
+  await expect(league).toHaveAttribute('open', '');
+  const club = league.locator('.club-branch[data-club="FC Barcelona"]');
+  await expect(club).toHaveAttribute('open', '');
+  await expect(club.locator('.roster-branches')).toContainText('Aitana Bonmatí');
+});

@@ -61,8 +61,8 @@ td:nth-child(3) {
   min-width: 58px;
   width: 58px;
 }
-td:nth-child(6),
-td:nth-child(7) {
+td:nth-child(7),
+td:nth-child(8) {
   min-width: 125px;
 }
 td small {
@@ -91,10 +91,25 @@ td strong {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.player-name-button:focus-visible {
+.player-name-button:focus-visible,
+.table-filter-button:focus-visible {
   outline: 2px solid #c28a1d;
   outline-offset: 3px;
   border-radius: 4px;
+}
+.table-filter-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.table-filter-button:hover,
+.table-filter-button:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .table-goalkeeper-icon {
   width: 24px;

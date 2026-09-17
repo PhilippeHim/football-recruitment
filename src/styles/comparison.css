@@ -28,6 +28,25 @@
   padding: 0 7px;
   font-size: 18px;
 }
+.comparison-player-name {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+.comparison-player-name:hover,
+.comparison-player-name:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.comparison-player-name:focus-visible {
+  outline: 2px solid #c28a1d;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 .comparison-player > span,
 .comparison-player > small {
   display: block;

@@ -7,7 +7,6 @@ export default function AnalysisPage({ rows, totalCount, filters, onReset }) {
     <>
       <MetricsPanel rows={rows} totalCount={totalCount} filters={filters} />
       <div className="page-next">
-        <p>Les graphiques décrivent les profils correspondant à vos filtres.</p>
         <a href="#/recherche">Retrouver les joueurs →</a>
       </div>
       {rows.length > 0 ? <ChartsPanel rows={rows} /> : <EmptyState onReset={onReset} />}

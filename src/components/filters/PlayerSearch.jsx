@@ -5,6 +5,7 @@ export default function PlayerSearch({
   onChange,
   label = 'Joueur ou club',
   help = 'Recherche par nom ou club, combinée aux filtres actifs.',
+  action = null,
 }) {
   const id = useId();
   const input = useRef(null);
@@ -35,6 +36,7 @@ export default function PlayerSearch({
           </button>
         )}
       </div>
+      {action && <div className="search-action">{action}</div>}
       {help && <small id={`${id}-help`}>{help}</small>}
     </div>
   );

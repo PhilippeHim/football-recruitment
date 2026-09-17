@@ -3,7 +3,12 @@ import { POSITION_OPTIONS } from '../../constante/players.js';
 import MultiSelect from './MultiSelect.jsx';
 import CategoryFilter from './CategoryFilter.jsx';
 
-export default function SelectionFilters({ filters, leagueOptions, onFilterChange }) {
+export default function SelectionFilters({
+  filters,
+  leagueOptions,
+  nationalityOptions,
+  onFilterChange,
+}) {
   return (
     <>
       <MultiSelect
@@ -12,6 +17,12 @@ export default function SelectionFilters({ filters, leagueOptions, onFilterChang
         selected={filters.leagues}
         disabledValues={filters.excludeBigFive ? BIG_FIVE : []}
         onChange={(value) => onFilterChange('leagues', value)}
+      />
+      <MultiSelect
+        label="Nationalités"
+        options={nationalityOptions}
+        selected={filters.nations}
+        onChange={(value) => onFilterChange('nations', value)}
       />
       <MultiSelect
         label="Postes principaux"

@@ -2,8 +2,17 @@ import { useEffect, useState } from 'react';
 import { PAGES } from '../constante/navigation.js';
 
 function readPage() {
-  const requested = window.location.hash.replace('#/', '');
+  const requested = decodeURIComponent(window.location.hash)
+    .replace(/^#\/?/, '')
+    .split('?')[0];
   return PAGES.some((page) => page.id === requested) ? requested : 'accueil';
+}
+
+function hasValidPageHash() {
+  const requested = decodeURIComponent(window.location.hash)
+    .replace(/^#\/?/, '')
+    .split('?')[0];
+  return PAGES.some((page) => page.id === requested);
 }
 
 /** Des URL avec fragment permettent navigation, liens directs et retour navigateur sans serveur de routes. */
@@ -13,7 +22,7 @@ export function usePageNavigation() {
   useEffect(() => {
     function syncPage() {
       const next = readPage();
-      if (window.location.hash !== `#/${next}`) {
+      if (!hasValidPageHash()) {
         window.history.replaceState(
           null,
           '',

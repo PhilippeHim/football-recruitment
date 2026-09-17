@@ -56,6 +56,7 @@ export default function RecruitmentPage() {
             hideSelectionFilters={page === 'recherche'}
             filters={recruitment.filters}
             leagueOptions={recruitment.leagueOptions}
+            nationalityOptions={recruitment.nationalityOptions}
             onFilterChange={recruitment.updateFilter}
             onToggleBigFive={recruitment.toggleBigFive}
             onReset={recruitment.resetFilters}
@@ -83,7 +84,13 @@ export default function RecruitmentPage() {
           {isHome && <Footer />}
           {!isHome && !loading && !error && (
             <>
-              {isLeagues && <LeaguesPage rows={rows} mercato={mercato} />}
+              {isLeagues && (
+                <LeaguesPage
+                  rows={rows}
+                  mercato={mercato}
+                  onQuickFilter={recruitment.quickFilter}
+                />
+              )}
               {isMercato && (
                 <MercatoPage
                   rows={rows}
@@ -107,7 +114,9 @@ export default function RecruitmentPage() {
                   onReset={recruitment.resetFilters}
                   filters={recruitment.filters}
                   leagueOptions={recruitment.leagueOptions}
+                  nationalityOptions={recruitment.nationalityOptions}
                   onFilterChange={recruitment.updateFilter}
+                  onQuickFilter={recruitment.quickFilter}
                 />
               )}
               {page === 'analyse' && (
@@ -122,6 +131,7 @@ export default function RecruitmentPage() {
                 <ComparisonPage
                   comparison={comparison}
                   filteredRows={recruitment.selectedPlayers}
+                  onQuickFilter={recruitment.quickFilter}
                 />
               )}
               {showTray && (

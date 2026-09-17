@@ -21,6 +21,8 @@ test('La recherche se combine aux seuils et aux ligues sans modifier les lignes'
       PAC: 97,
       DRI: 92,
       League: 'LALIGA EA SPORTS',
+      Nation: 'France',
+      Age: 25,
       Position: 'ST',
       gender: 'M',
     },
@@ -33,6 +35,35 @@ test('La recherche se combine aux seuils et aux ligues sans modifier les lignes'
   assert.equal(
     filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', leagues: ['MLS'] }).length,
     0,
+  );
+  assert.equal(
+    filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', nations: ['France'] })
+      .length,
+    1,
+  );
+  assert.equal(
+    filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', nations: ['Spain'] })
+      .length,
+    0,
+  );
+  assert.equal(
+    filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', teams: ['Real Madrid'] })
+      .length,
+    1,
+  );
+  assert.equal(
+    filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', teams: ['Paris SG'] })
+      .length,
+    0,
+  );
+  assert.equal(
+    filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', ages: [25] }).length,
+    1,
+  );
+  assert.equal(
+    filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', positions: ['ST'] })
+      .length,
+    1,
   );
   assert.equal(
     filterPlayers(rows, { ...DEFAULT_FILTERS, query: 'mbappe', ovr: 99 }).length,

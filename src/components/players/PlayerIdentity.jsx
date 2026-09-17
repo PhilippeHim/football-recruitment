@@ -21,6 +21,12 @@ const GOALKEEPER_STATS = {
   'GK.Reflexes': 'Réflexes',
 };
 
+function leagueHref(player, includeClub) {
+  const params = new URLSearchParams({ league: player.League });
+  if (includeClub) params.set('club', player.Team);
+  return `#/ligues?${params.toString()}`;
+}
+
 export default function PlayerIdentity({
   player,
   onClose,
@@ -28,6 +34,7 @@ export default function PlayerIdentity({
   closeOnPointerLeave = false,
 }) {
   const dialog = useRef(null);
+  const pointerEntered = useRef(false);
   useEffect(() => {
     const element = dialog.current;
     const trigger = document.activeElement;
@@ -37,6 +44,28 @@ export default function PlayerIdentity({
       trigger?.focus();
     };
   }, []);
+  useEffect(() => {
+    if (!closeOnPointerLeave) return undefined;
+
+    function handlePointerMove(event) {
+      const element = dialog.current;
+      if (!element || !pointerEntered.current) return;
+
+      const rect = element.getBoundingClientRect();
+      const isInside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
+
+      if (!isInside) onClose();
+    }
+
+    window.addEventListener('pointermove', handlePointerMove, true);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove, true);
+    };
+  }, [closeOnPointerLeave, onClose]);
   const identity = {
     Club: player.Team,
     Ligue: player.League,
@@ -53,6 +82,13 @@ export default function PlayerIdentity({
       { Right: 'Droit', Left: 'Gauche' }[player['Preferred.foot']] ||
       player['Preferred.foot'],
   };
+  function navigateToLeague(event, includeClub) {
+    event.preventDefault();
+    const href = leagueHref(player, includeClub);
+    onClose();
+    window.location.hash = href.slice(1);
+  }
+
   return (
     <dialog
       ref={dialog}
@@ -63,6 +99,13 @@ export default function PlayerIdentity({
         onClose();
       }}
       onPointerLeave={closeOnPointerLeave ? onClose : undefined}
+      onPointerEnter={
+        closeOnPointerLeave
+          ? () => {
+              pointerEntered.current = true;
+            }
+          : undefined
+      }
     >
       <header>
         <div>
@@ -87,7 +130,18 @@ export default function PlayerIdentity({
         {Object.entries(identity).map(([label, value]) => (
           <div key={label}>
             <dt>{label}</dt>
-            <dd>{value || 'Non renseigné'}</dd>
+            <dd>
+              {label === 'Club' || label === 'Ligue' ? (
+                <a
+                  href={leagueHref(player, label === 'Club')}
+                  onClick={(event) => navigateToLeague(event, label === 'Club')}
+                >
+                  {value || 'Non renseigné'}
+                </a>
+              ) : (
+                value || 'Non renseigné'
+              )}
+            </dd>
           </div>
         ))}
       </dl>
